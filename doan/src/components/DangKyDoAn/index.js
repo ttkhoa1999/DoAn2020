@@ -8,17 +8,21 @@ class DangKyDoAn extends Component{
     constructor(props){
         super(props);
         this.state =  {
-          danhsach : []
+          danhsach : [],
+          isGV : '',
         }
     }
     componentDidMount(){
         axios({
-            method : 'GET',
+            method : 'POST',
             url : 'http://localhost:4000/topics',
-            data : null
+            data : null,
+            withCredentials: true
         }).then(res => {
+          console.log(res.data);
           this.setState({
-            danhsach : res.data,
+            danhsach : res.data.ds,
+            isGV : res.data.isGV,
           })
         })
       }
@@ -29,7 +33,7 @@ class DangKyDoAn extends Component{
           if(item.isGV === false)
             return sl = sl + 1;
         })
-        if (sl < 3) {
+        if(this.state.isGV === 1){
           const {history} = this.props;
           axios({
             method : 'POST',
@@ -37,12 +41,26 @@ class DangKyDoAn extends Component{
             data : {id : id},
             withCredentials: true
           }).then(res => {
-            console.log(res.data);
-            history.push('/ThongTin');
+            if(confirm('Bạn có muốn tiếp tục đăng ký không ?')){ //eslint-disable-line
+              this.componentDidMount();
+            }
+            else history.push('/ThongTin');
           })
         }
-        else alert('Số lượng sinh viên đăng ký đã đủ, xin chọn đồ án khác');
-        
+        else{
+          if (sl < 3) {
+            const {history} = this.props;
+            axios({
+              method : 'POST',
+              url : 'http://localhost:4000/topics/dkda',
+              data : {id : id},
+              withCredentials: true
+            }).then(res => {
+              history.push('/ThongTin');
+            })
+          }
+          else alert('Số lượng sinh viên đăng ký đã đủ, xin chọn đồ án khác');
+        }
       }
 
   render() {

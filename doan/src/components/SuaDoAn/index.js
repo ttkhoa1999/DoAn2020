@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import moment from 'moment';
 
 
 
@@ -28,7 +28,8 @@ class SuaDoAn extends Component{
                 tenDoAn : res.data.tenDoAn,
                 nenTang : res.data.nenTang,
                 moTa : res.data.moTa,
-                ngayNop : res.data.ngayNop,
+                ngayNop : moment(res.data.ngayNop, "DD-MM-YYYY").format("YYYY-MM-DD"),
+                //ngayNop : moment(res.data.ngayNop).format('YYYY-MM-DD'),
                 ngDK : res.data.ngDK,
             })
         })

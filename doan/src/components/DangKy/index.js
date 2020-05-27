@@ -42,10 +42,6 @@ class DangKy extends Component{
              alert('Email đã đăng ký, vui lòng nhập email mới');
             else {
                 alert('Đăng ký thành công');
-                if(res.data.gt === 1){
-                    alert('Xin chào giáo viên ' + res.data.ten +' vui lòng đăng nhập lại để biết đồ án mình hướng dẫn.');
-                    history.goBack();
-                }
                 const cookies = new Cookies();
                 cookies.set('id', res.data.id, { path: '/' });
                 history.push('/DangKyDoAn');
@@ -64,7 +60,7 @@ class DangKy extends Component{
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
                                 <label>Email</label>
-                                <input type="email" className="form-control" name="email" placeholder="emial" onChange={this.onChange}/>
+                                <input type="email" className="form-control" name="email" placeholder="email" onChange={this.onChange}/>
                             </div>
                             <div className="form-group">
                                 <label>Password</label>

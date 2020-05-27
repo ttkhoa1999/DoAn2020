@@ -10,14 +10,15 @@ class DanhSachDoAn_Admin extends Component{
     }
   }
 
-  onDeleteGV = (idGV) => {
+  onDeleteGV = (idGV, id) => {
     const {ds} = this.props;
-    console.log(idGV);
     if(confirm('Bạn có chắc chắn muốn xóa không ?')){ //eslint-disable-line
       axios({
         method : 'DELETE',
         url : `http://localhost:4000/users/${idGV}`,
-        data : null
+        data : {
+          idTopic : id,
+        }
       }).then(res => {
         if(res.status === 200){
           let index = this.findId(ds.user, idGV);
@@ -57,7 +58,7 @@ class DanhSachDoAn_Admin extends Component{
             <td>{ds.user.map((item, index) => {
                     if(item.isGV === true){
                     return  <p className="ml-10 mt-5" key={item.id}>{item.ten}, Email: {item.email}
-                              <button type="button" className="btn btn-warning ml-10 f" onClick={() => this.onDeleteGV(ds.user[index].id)}>-</button>
+                              <button type="button" className="btn btn-warning ml-10 f" onClick={() => this.onDeleteGV(ds.user[index].id, ds.id)}>-</button>
                             </p>
                     }
                 })}

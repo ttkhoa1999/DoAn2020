@@ -2,8 +2,7 @@ var express = require('express');
 var router = express.Router();
 const db = require('../models');
 
-
-//Hiển thị
+//Hiển thị cho admin
 router.get('/', async (req, res, next) => {
   try {
     const result = await db.Topic.findAll({
@@ -14,6 +13,27 @@ router.get('/', async (req, res, next) => {
       }
     });
     res.send(result);
+  } catch (error) {
+    console.log(error)
+  }
+ });
+
+//Hiển thị
+router.post('/', async (req, res, next) => {
+  let idUser = req.cookies.id;
+  try {
+    const result = await db.Topic.findAll({
+      include : {
+        model: db.User,
+        as: 'user',
+        //where: {isGV : 1},
+      }
+    });
+    const result2 = await db.User.findOne({where : {id : idUser, isGV : true}})
+    if(result2){
+      res.send({ds: result, isGV : 1});
+    }
+    else res.send({ds: result, isGV : 0});
   } catch (error) {
     console.log(error)
   }

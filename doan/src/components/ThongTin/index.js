@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class ThongTin extends Component{
   constructor(props) {
     super(props);
     this.state = {
       ds : [],
+      isGV : false,
     }
   }
   
@@ -16,15 +18,19 @@ class ThongTin extends Component{
         data : null,
         withCredentials: true
     }).then(res => {
+      console.log(res.data);
       this.setState({
         ds: res.data[0].topic,
+        isGV : res.data[0].isGV,
       })
     })
   }
   
+  
   render() {
     return (
       <div>
+        { this.state.isGV ? <Link to={'/DangKyDoAn'} type="button" className="btn btn-success cy bd mb-15">Đăng ký đồ án hướng dẫn</Link> : '' }
         {this.state.ds.map((item, index) => {
                 return <div className="panel panel-danger" key={index}>
                           <div className="panel-heading">

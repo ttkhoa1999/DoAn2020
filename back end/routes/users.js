@@ -13,9 +13,6 @@ router.post('/dk', async (req, res, next) => {
     }
     else {
       const result = await db.User.create({email, password, ten, isGV, isAdmin});
-      if(result.isGV === true){
-        res.send({ten: result.ten, gt: 1});
-      }
       res.send(result);
     }
   } catch (error) {
@@ -46,7 +43,7 @@ router.post('/', async (req, res, next) => {
           else {
             const kt3 = await db.User.findOne({where : {id : kt.id, isGV : true}})
             if(kt3){
-              res.send({kt: -1, ten: kt3.ten});
+              res.send({kt: kt.id, isGV : 1, message: '/DangKyDoAn'});
             }
             else res.send({kt: kt.id, message: '/DangKyDoAn'});
           }
@@ -105,8 +102,9 @@ router.get('/isGV', async (req, res, next) => {
 //Xóa giáo viên
 router.delete('/:id', async (req, res, next) => {
   let {id} = req.params;
+  let {idTopic} = req.body;
   try {
-    const result = await db.User_Topic.destroy({where : {userID : id}});
+    const result = await db.User_Topic.destroy({where : {userID : id, topicID : idTopic}});
     res.json(result);
   } catch (error) {
     res.send(error);

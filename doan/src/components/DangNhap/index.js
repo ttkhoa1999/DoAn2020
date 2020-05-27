@@ -40,9 +40,6 @@ class DangKy extends Component{
                      if(res.data.admin === 1){
                         history.push(res.data.message);
                      }else {
-                        if(res.data.kt === -1){
-                            alert('Xin chào giáo viên ' + res.data.ten + ' tạm thời chưa có thông tin về đồ án hướng dẫn, vui lòng quay lại sau.');
-                        }
                         const cookies = new Cookies();
                         cookies.set('id', res.data.kt, { path: '/' });
                         history.push(res.data.message);
