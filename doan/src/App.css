@@ -36,6 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+input password{
+  -webkit-text-security: circle;
+  -text-security: circle;
+}
+
 .icon {
   height: 80px;
   width: 80px;
@@ -73,13 +79,42 @@
   width: 10px;
   height: 10px;
 }
+.iwd {
+  width: 150px;
+}
+.wcn {
+  width: 50px;
+  height: 30px;
+}
+.iwp {
+  width: 70px;
+}
 .w1 {
-  width: 400px;
+  width: 300px;
   height: 20px;
+}
+.w2 {
+  width: 200px;
 }
 .f {
   font-size: 6px;
 }
 .mb-15 {
   margin-bottom: 15px;
+}
+.st {
+  display: flex;
+  flex-direction: column;
+}
+.fr {
+  float: right;
+}
+.fl {
+  float: left;
+}
+.flex {
+  display: flex;
+}
+.ml-5 {
+  margin-left: 5px;
 }

@@ -9,7 +9,6 @@ class DangKyDoAn extends Component{
         super(props);
         this.state =  {
           danhsach : [],
-          isGV : '',
         }
     }
     componentDidMount(){
@@ -22,7 +21,6 @@ class DangKyDoAn extends Component{
           console.log(res.data);
           this.setState({
             danhsach : res.data.ds,
-            isGV : res.data.isGV,
           })
         })
       }
@@ -33,7 +31,7 @@ class DangKyDoAn extends Component{
           if(item.isGV === false)
             return sl = sl + 1;
         })
-        if(this.state.isGV === 1){
+        if (sl < sln) {
           const {history} = this.props;
           axios({
             method : 'POST',
@@ -41,26 +39,13 @@ class DangKyDoAn extends Component{
             data : {id : id},
             withCredentials: true
           }).then(res => {
-            if(confirm('Bạn có muốn tiếp tục đăng ký không ?')){ //eslint-disable-line
-              this.componentDidMount();
+            if(res.data === 0){
+              alert('Bạn không thể đăng ký đồ án nữa');
             }
-            else history.push('/ThongTin');
+            history.push('/ThongTin');
           })
         }
-        else{
-          if (sl < 3) {
-            const {history} = this.props;
-            axios({
-              method : 'POST',
-              url : 'http://localhost:4000/topics/dkda',
-              data : {id : id},
-              withCredentials: true
-            }).then(res => {
-              history.push('/ThongTin');
-            })
-          }
-          else alert('Số lượng sinh viên đăng ký đã đủ, xin chọn đồ án khác');
-        }
+        else alert('Số lượng sinh viên đăng ký đã đủ, xin chọn đồ án khác');
       }
 
   render() {
@@ -79,7 +64,6 @@ class DangKyDoAn extends Component{
                                 <th>Tên đồ án</th>
                                 <th>Nền tảng</th>
                                 <th>Mô tả</th>
-                                <th>Ngày nộp</th>
                                 <th>Số lượng</th>
                                 <th>Người đăng ký</th>
                                 <th>Giáo viên hướng dẫn</th>

@@ -22,7 +22,6 @@ class DanhSachDoAn extends Component{
             <td>{ds.tenDoAn}</td>
             <td>{ds.nenTang}</td>
             <td>{ds.moTa}</td>
-            <td>{ds.ngayNop}</td>
             <td>{ds.ngDK}</td>
             <td>{ds.user.map((item) => {
                     if(item.isGV !== true){

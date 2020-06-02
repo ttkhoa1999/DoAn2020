@@ -1,19 +1,45 @@
 var express = require('express');
 var router = express.Router();
 const db = require('../models');
+var nodemailer =  require('nodemailer');
+require('dotenv').config();
 
+
+var maa = -111;
 
 //Đăng ký
 router.post('/dk', async (req, res, next) => {
-  let {email, password, ten, isGV, isAdmin} = req.body;
+  let {email, password, ten, isGV, isAdmin, ma, maGV} = req.body;
+  console.log('CCC', ma, maa);
   try {
-    const kt = await db.User.findOne({where : {email : email}});
-    if(kt !== null) {
-      res.send('da ton tai');
+    if(ma == maa){
+      const kt = await db.User.findOne({where : {email : email}});
+      if(kt !== null) {
+        res.send('da ton tai');
+      }
+      else {
+        if(isGV === true){
+          if(maGV === 'ABC'){
+            const result = await db.User.create({email, password, ten, isGV, isAdmin});
+            res.send({result: result, message: '1'});
+          }
+          else res.send('sai maGV');
+        }
+        else 
+        {
+          const result = await db.User.create({email, password, ten, isGV, isAdmin});
+          res.send(result);
+        }
+      }
+      ma = -111;
     }
     else {
-      const result = await db.User.create({email, password, ten, isGV, isAdmin});
-      res.send(result);
+      if(ma === '')
+        res.send('nhap ma');
+      else {
+        if(ma != maa)
+          res.send('ma sai');
+      }
     }
   } catch (error) {
     console.log(error);
@@ -23,16 +49,16 @@ router.post('/dk', async (req, res, next) => {
 
 //Đăng nhập
 router.post('/', async (req, res, next) => {
-  let {email, password} = req.body;
+  let {mssv, password} = req.body;
   try {
-    const kt = await db.User.findOne({where : {email : email}});
+    const kt = await db.User.findOne({where : {mssv : mssv}});
     if(kt === null){
       res.send('0');
     }    
     else {
       const result = await kt.validPassword(password);
       if(result === true){
-        if(email === 'admin'){
+        if(mssv === 'admin'){
           res.send({admin : 1, message: '/QuanLyDoAn'});
         }
         else {
@@ -43,7 +69,7 @@ router.post('/', async (req, res, next) => {
           else {
             const kt3 = await db.User.findOne({where : {id : kt.id, isGV : true}})
             if(kt3){
-              res.send({kt: kt.id, isGV : 1, message: '/DangKyDoAn'});
+              res.send({kt: kt.id, isGV : 1, message: '/ThongTin'});
             }
             else res.send({kt: kt.id, message: '/DangKyDoAn'});
           }
@@ -111,5 +137,42 @@ router.delete('/:id', async (req, res, next) => {
   }
  });
 
+
+ //Gửi mail
+ router.post('/send', async (req, res, next) => {
+   let {email} = req.body;
+   const kt = await db.User.findOne({where : {email : email}});
+    if(kt !== null) {
+      res.send('da ton tai');
+    }
+    else {
+      maa = Math.floor(Math.random() * Math.floor(1000));
+      var transporter =  nodemailer.createTransport(
+        {
+          service: 'gmail',
+          auth: {
+          user: process.env.EMAIL,
+          pass: process.env.PASSWORD,
+          }
+        }
+      );
+      var mainOptions = { 
+          from: 'DoAn',
+          to: email,
+          subject: 'Mã đăng ký',
+          text: 'Chào bạn' + email,
+          html: '<p>Mã xác nhận của bạn là: </b>' + maa,
+      }
+      transporter.sendMail(mainOptions, function(err, info){
+          if (err) {
+              console.log(err);
+              res.redirect('/');
+          } else {
+              console.log('Message sent: ' +  info.response);
+              res.send('1');
+          }
+      });
+    }
+});
 
 module.exports = router;

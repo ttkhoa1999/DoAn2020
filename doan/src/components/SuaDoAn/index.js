@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import moment from 'moment';
+//import moment from 'moment';
 
 
 
@@ -28,8 +28,7 @@ class SuaDoAn extends Component{
                 tenDoAn : res.data.tenDoAn,
                 nenTang : res.data.nenTang,
                 moTa : res.data.moTa,
-                ngayNop : moment(res.data.ngayNop, "DD-MM-YYYY").format("YYYY-MM-DD"),
-                //ngayNop : moment(res.data.ngayNop).format('YYYY-MM-DD'),
+                //ngayNop : moment(res.data.ngayNop, "DD-MM-YYYY").format("YYYY-MM-DD"),
                 ngDK : res.data.ngDK,
             })
         })
@@ -57,7 +56,6 @@ class SuaDoAn extends Component{
                 tenDoAn : this.state.tenDoAn,
                 nenTang : this.state.nenTang,
                 moTa : this.state.moTa,
-                ngayNop : this.state.ngayNop,
                 ngDK : this.state.ngDK,
             }
         }).then(res => {
@@ -89,10 +87,6 @@ class SuaDoAn extends Component{
                             <div className="form-group">
                                 <label>Mô tả</label>
                                 <textarea type="text" className="form-control" name="moTa" placeholder="Mô tả"  onChange={this.onChange} value={this.state.moTa}/>
-                            </div>
-                            <div className="form-group">
-                                <label>Ngày nộp</label>
-                                <input type="date" className="form-control" name="ngayNop" onChange={this.onChange} value={this.state.ngayNop}/>
                             </div>
                             <div className="form-group">
                                 <label>Số lượng</label>

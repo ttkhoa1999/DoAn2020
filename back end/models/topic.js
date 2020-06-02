@@ -16,17 +16,25 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false
           // allowNull defaults to true
         },
+        ngDK: {
+          type: DataTypes.INTEGER,
+          allowNull: false
+      },
         ngayNop: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
             get: function() {
               return moment(this.getDataValue('ngayNop')).format('DD/MM/YYYY')
            }
         },
-        ngDK: {
-            type: DataTypes.INTEGER,
-            allowNull: false
+        phong: {
+          type: DataTypes.STRING,
+          allowNull: true
         },
+        ngTao: {
+          type: DataTypes.INTEGER,
+          allowNull: true
+      },
       }, {
         tableName: 'topics',
     });

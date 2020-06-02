@@ -3,7 +3,6 @@ import axios from 'axios';
 
 
 
-
 class ThemDoAn extends Component{
     constructor(props){
         super(props);
@@ -11,7 +10,6 @@ class ThemDoAn extends Component{
             tenDoAn : '',
             nenTang : '',
             moTa : '',
-            ngayNop : '',
             ngDK : '',
         }
     }
@@ -36,9 +34,9 @@ class ThemDoAn extends Component{
                 tenDoAn : this.state.tenDoAn,
                 nenTang : this.state.nenTang,
                 moTa : this.state.moTa,
-                ngayNop : this.state.ngayNop,
                 ngDK : this.state.ngDK,
-            }
+            },
+            withCredentials: true
         }).then(res => {
             if(res.data){
                 alert('Thêm đồ án thàng công');
@@ -68,10 +66,6 @@ class ThemDoAn extends Component{
                             <div className="form-group">
                                 <label>Mô tả</label>
                                 <textarea type="text" className="form-control" name="moTa" placeholder="Mô tả"  onChange={this.onChange}/>
-                            </div>
-                            <div className="form-group">
-                                <label>Ngày nộp</label>
-                                <input type="date" className="form-control" name="ngayNop" onChange={this.onChange}/>
                             </div>
                             <div className="form-group">
                                 <label>Số lượng</label>

@@ -9,7 +9,7 @@ class DangKy extends Component{
     constructor(props){
         super(props);
         this.state = {
-            email : '',
+            mssv : '',
             password : '',
         }
     }
@@ -27,7 +27,7 @@ class DangKy extends Component{
             method : 'POST',
             url : 'http://localhost:4000/users',
             data : {
-                email : this.state.email,
+                mssv : this.state.mssv,
                 password : this.state.password,
             },
         }).then(res => {
@@ -38,6 +38,8 @@ class DangKy extends Component{
                     alert('Email hoặc mật khẩu chưa chính xác');
                  else {
                      if(res.data.admin === 1){
+                        const cookies = new Cookies();
+                        cookies.set('id', undefined, { path: '/' });
                         history.push(res.data.message);
                      }else {
                         const cookies = new Cookies();
@@ -58,13 +60,13 @@ class DangKy extends Component{
                     </div>
                     <div className="panel-body">
                         <form onSubmit={this.onSubmit}>
-                            <div className="form-group">
+                        <div className="form-group">
                                 <label>Email</label>
-                                <input type="text" className="form-control" name="email" placeholder="email" onChange={this.onChange}/>
+                                <input type="text" className="form-control" name="mssv" placeholder="Email" onChange={this.onChange}/>
                             </div>
                             <div className="form-group">
                                 <label>Password</label>
-                                <input type="text" className="form-control" name="password" placeholder="password"  onChange={this.onChange}/>
+                                <input type="password" className="form-control" name="password" placeholder="password"  onChange={this.onChange}/>
                             </div>
                             <button type="submit" className="btn btn-primary btc pd">Đăng nhập</button><br />
                             <Link to='/Dangky'>Nhấn vào đây để đăng ký</Link>
