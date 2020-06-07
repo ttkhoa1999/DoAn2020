@@ -64,7 +64,7 @@ class DangKy extends Component{
                 if(res.data === 'ma sai')
                     alert('Mã đăng ký không đúng, vui lòng nhập lại');
                     else {
-                        if(res.data === 'sai maGV' || this.state.maGV === ''){
+                        if(res.data === 'sai maGV'){
                             alert('Mã giáo viên không đúng, vui lòng nhập lại');
                            }
                            else {
@@ -72,7 +72,7 @@ class DangKy extends Component{
                                const cookies = new Cookies();
                                if(res.data.message === '1'){
                                    cookies.set('id', res.data.result.id, { path: '/' });
-                                   history.push('/ThongTin');
+                                   history.push('/QuanLyDoAn');
                                }
                                else {
                                    cookies.set('id', res.data.id, { path: '/' });
@@ -96,20 +96,20 @@ class DangKy extends Component{
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
                                 <label>Email</label>
-                                <input type="text" className="form-control" name="email" placeholder="Email" onChange={this.onChange}/>
+                                <input type="email" className="form-control" name="email" placeholder="Email" onChange={this.onChange} required pattern="[a-z0-9._%+-]+@dlu.edu.vn"/>
                             </div>
                             <div className="form-group">
                                 <label>Password</label>
-                                <input type="password" className="form-control" name="password" placeholder="password"  onChange={this.onChange}/>
+                                <input type="password" className="form-control" name="password" placeholder="password"  onChange={this.onChange} required/>
                             </div>
                             <div className="form-group">
                                 <label>Họ và tên</label>
-                                <input type="text" className="form-control" name="ten" placeholder="Họ và tên"  onChange={this.onChange}/>
+                                <input type="text" className="form-control" name="ten" placeholder="Họ và tên"  onChange={this.onChange} required/>
                             </div>
                             <div className="form-group">
                                 <label>Mã đăng ký</label>
                                 <div className="flex">
-                                    <input type="text" className="form-control w2" name="ma" placeholder="Mã đăng ký"  onChange={this.onChange}/>
+                                    <input type="text" className="form-control w2" name="ma" placeholder="Mã đăng ký"  onChange={this.onChange} required/>
                                     <button type="button" className="btn btn-primary ml-5" onClick={this.onClick}>Lấy mã</button>
                                 </div>
                             </div>

@@ -49,29 +49,31 @@ router.post('/dk', async (req, res, next) => {
 
 //Đăng nhập
 router.post('/', async (req, res, next) => {
-  let {mssv, password} = req.body;
+  let {email, password} = req.body;
   try {
-    const kt = await db.User.findOne({where : {mssv : mssv}});
+    const kt = await db.User.findOne({where : {email : email}});
     if(kt === null){
       res.send('0');
     }    
     else {
       const result = await kt.validPassword(password);
       if(result === true){
-        if(mssv === 'admin'){
+        if(kt.isAdmin === true){
           res.send({admin : 1, message: '/QuanLyDoAn'});
         }
         else {
-          const kt2 = await db.User_Topic.findOne({where : {UserId : kt.id}});
-          if(kt2) {
-            res.send({kt: kt.id, message: '/ThongTin'});
+          const kt3 = await db.User.findOne({where : {id : kt.id, isGV : true}})
+          if(kt3){
+            res.send({kt: kt.id, isGV : 1, message: '/QuanLyDoAn'});
           }
-          else {
-            const kt3 = await db.User.findOne({where : {id : kt.id, isGV : true}})
-            if(kt3){
-              res.send({kt: kt.id, isGV : 1, message: '/ThongTin'});
+          else{
+            const kt2 = await db.User_Topic.findOne({where : {UserId : kt.id}});
+            if(kt2) {
+              res.send({kt: kt.id, message: '/ThongTin'});
             }
-            else res.send({kt: kt.id, message: '/DangKyDoAn'});
+            else {
+              res.send({kt: kt.id, message: '/DangKyDoAn'});
+            }
           }
         }
       }

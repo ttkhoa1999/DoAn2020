@@ -8,7 +8,8 @@ class DanhSachDoAn_Admin extends Component{
   constructor(props){
     super(props);
     const cookie = new Cookies();
-    this.id = cookie.get('id') !== 'undefined' ? true : false;
+    this.id = cookie.get('id') !== 'admin' ? true : false;
+    this.id1 = cookie.get('id');
     this.state = {
       s : false,
       n : false,
@@ -17,10 +18,14 @@ class DanhSachDoAn_Admin extends Component{
     }
   }
 
-  onDelete = (id) => {
+  onDelete = (id, ngTao) => {
     if(confirm('Bạn có chắc chắn muốn xóa đề tài không ?')){ //eslint-disable-line
-      this.props.onDelete(id);
+      this.props.onDelete(id, ngTao);
     }
+  }
+
+  onClick2 = (id) => {
+    this.props.onClickI(id);
   }
 
   onChange = ({target}) => {
@@ -56,27 +61,60 @@ class DanhSachDoAn_Admin extends Component{
   }
 
 
-  onDeleteGV = (idGV, id) => {
+  onDeleteGV = (idGV, id, ngTao) => {
+    console.log(this.id1, idGV);
     const {ds} = this.props;
-    if(confirm('Bạn có chắc chắn muốn xóa không ?')){ //eslint-disable-line
-      axios({
-        method : 'DELETE',
-        url : `http://localhost:4000/users/${idGV}`,
-        data : {
-          idTopic : id,
+    if(ngTao === null){
+      if(this.id1 == idGV || !this.id){
+        if(confirm('Bạn có chắc chắn muốn xóa không ?')){ //eslint-disable-line
+          axios({
+            method : 'DELETE',
+            url : `http://localhost:4000/users/${idGV}`,
+            data : {
+              idTopic : id,
+            }
+          }).then(res => {
+            if(res.status === 200){
+              let index = this.findId(ds.user, idGV);
+              console.log(index);
+              if(index !== -1){
+                ds.user.splice(index, 1);
+                this.setState({
+                  ds : this.ds
+                })
+              }
+            }
+          })
+          window.location.reload(false);
         }
-      }).then(res => {
-        if(res.status === 200){
-          let index = this.findId(ds.user, idGV);
-          console.log(index);
-          if(index !== -1){
-            ds.user.splice(index, 1);
-            this.setState({
-              ds : this.ds
-            })
-          }
+      }
+      else alert('Bạn không thể xóa');
+    }
+    else {
+      if(ngTao !== idGV || !this.id){
+        if(confirm('Bạn có chắc chắn muốn xóa không ?')){ //eslint-disable-line
+          axios({
+            method : 'DELETE',
+            url : `http://localhost:4000/users/${idGV}`,
+            data : {
+              idTopic : id,
+            }
+          }).then(res => {
+            if(res.status === 200){
+              let index = this.findId(ds.user, idGV);
+              console.log(index);
+              if(index !== -1){
+                ds.user.splice(index, 1);
+                this.setState({
+                  ds : this.ds
+                })
+              }
+            }
+          })
+          window.location.reload(false);
         }
-      })
+      }
+      else alert('Bạn không thể xóa');
     }
   }
 
@@ -92,15 +130,14 @@ class DanhSachDoAn_Admin extends Component{
 
 
   render() {
-    console.log(this.state.ngayNop);
     var {ds, index} = this.props;
     return (
       <tr>
-            <td>{index + 1}</td>
-            <td>{ds.tenDoAn}</td>
-            <td>{ds.nenTang}</td>
-            <td>{ds.moTa}</td>
-            <td>{ds.ngDK}</td>
+            <td onClick={() => this.onClick2(ds.id)}>{index + 1}</td>
+            <td onClick={() => this.onClick2(ds.id)}>{ds.tenDoAn}</td>
+            <td onClick={() => this.onClick2(ds.id)}>{ds.nenTang}</td>
+            <td onClick={() => this.onClick2(ds.id)}>{ds.moTa}</td>
+            <td onClick={() => this.onClick2(ds.id)}>{ds.ngDK}</td>
             {
               this.id ? '' :
               <td >
@@ -133,8 +170,8 @@ class DanhSachDoAn_Admin extends Component{
             }
             <td>{ds.user.map((item, index) => {
                     if(item.isGV === true){
-                    return  <p className="ml-10 mt-5" key={item.id}>{item.ten}, Email: {item.mssv}@dlu.edu.vn
-                              <button type="button" className="btn btn-warning ml-10 f" onClick={() => this.onDeleteGV(ds.user[index].id, ds.id)}>-</button>
+                    return  <p className="ml-10 mt-5" key={item.id}>{item.ten}, Email: {item.email}
+                              <button type="button" className="btn btn-warning ml-10 f" onClick={() => this.onDeleteGV(ds.user[index].id, ds.id, ds.ngTao)}>-</button>
                             </p>
                     }
                 })}
@@ -142,7 +179,7 @@ class DanhSachDoAn_Admin extends Component{
             </td>
             <td>
             <Link to={`${ds.id}/edit`}type="button" className="btn btn-success" >Sửa</Link>
-            <button type="button" className="btn btn-danger ml-10" onClick={() => this.onDelete(ds.id)}>Xóa</button>
+            <button type="button" className="btn btn-danger ml-10" onClick={() => this.onDelete(ds.id, ds.ngTao)}>Xóa</button>
             </td>
       </tr>
     );

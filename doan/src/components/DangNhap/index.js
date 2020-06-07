@@ -9,7 +9,7 @@ class DangKy extends Component{
     constructor(props){
         super(props);
         this.state = {
-            mssv : '',
+            email : '',
             password : '',
         }
     }
@@ -27,7 +27,7 @@ class DangKy extends Component{
             method : 'POST',
             url : 'http://localhost:4000/users',
             data : {
-                mssv : this.state.mssv,
+                email : this.state.email,
                 password : this.state.password,
             },
         }).then(res => {
@@ -39,7 +39,7 @@ class DangKy extends Component{
                  else {
                      if(res.data.admin === 1){
                         const cookies = new Cookies();
-                        cookies.set('id', undefined, { path: '/' });
+                        cookies.set('id', 'admin', { path: '/' });
                         history.push(res.data.message);
                      }else {
                         const cookies = new Cookies();
@@ -62,11 +62,11 @@ class DangKy extends Component{
                         <form onSubmit={this.onSubmit}>
                         <div className="form-group">
                                 <label>Email</label>
-                                <input type="text" className="form-control" name="mssv" placeholder="Email" onChange={this.onChange}/>
+                                <input type="text" className="form-control" name="email" placeholder="Email" onChange={this.onChange} required pattern="[a-z0-9._%+-]+@dlu.edu.vn"/>
                             </div>
                             <div className="form-group">
                                 <label>Password</label>
-                                <input type="password" className="form-control" name="password" placeholder="password"  onChange={this.onChange}/>
+                                <input type="password" className="form-control" name="password" placeholder="password"  onChange={this.onChange} required/>
                             </div>
                             <button type="submit" className="btn btn-primary btc pd">Đăng nhập</button><br />
                             <Link to='/Dangky'>Nhấn vào đây để đăng ký</Link>

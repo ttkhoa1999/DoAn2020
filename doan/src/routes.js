@@ -8,6 +8,7 @@ import ThongTin from './components/ThongTin';
 import Them from './components/Them';
 import DanhSachGiaoVien from './components/DanhSachGiaoVien';
 import SuaDoAn from './components/SuaDoAn';
+import Order from './components/Order';
 
 
 
@@ -51,6 +52,9 @@ const routes = [
         path : '/:id/edit',
         exact : false,
         main : ({match, history}) => <SuaDoAn match={match} history={history}/>
+    },
+    {
+        main : ({history}) => <Order history={history}/>
     },
     {
         path : '',

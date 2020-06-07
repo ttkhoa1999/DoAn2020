@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var topic = require('./routes/topics');
+var order = require('./routes/orders');
 
 var app = express();
 const db = require('./models');
@@ -28,6 +29,7 @@ app.use(express.static('public'));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/topics', topic);
+app.use('/orders', order);
 
 
 // catch 404 and forward to error handler
@@ -47,5 +49,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-db.sequelize.sync({force: true});
+//db.sequelize.sync({force: true});
 module.exports = app;

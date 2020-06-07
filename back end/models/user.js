@@ -45,5 +45,6 @@ module.exports = (sequelize, DataTypes) => {
     User.associate = function(models) {
       User.belongsToMany(models.Topic, {as: 'topic', through: 'User_Topic', foreignKey: 'userId', otherKey: 'topicId' });
     }
+
      return User;
 }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+import { Link } from 'react-router-dom';
 
 
 
@@ -9,6 +11,8 @@ class DanhSachGiaoVien extends Component{
         this.state = {
             isGV : [],
         }
+        const cookie = new Cookies();
+        this.idMoi = cookie.get('id');
     }
 
     componentDidMount(){
@@ -24,17 +28,37 @@ class DanhSachGiaoVien extends Component{
         })
     }
 
-    onClick = (idu) => {
-        const {history} = this.props;
+    onClick = (idu, ten) => {
         let {match} = this.props;
         let {id} = match.params;
         axios({
             method : 'POST',
-            url : `http://localhost:4000/topics/${id}/ThemGV`,
-            data : {idUser : idu}
+            url : 'http://localhost:4000/orders/kt',
+            data : {
+                idNhan : idu,
+                idMoi : this.idMoi,
+                idTopic : id,
+            }
         }).then(res => {
-            console.log(res.data);
-            history.push('/QuanLyDoAn');
+            if(res.data === 0){
+                alert('Không thực hiện được');
+            }
+            else
+            {
+                axios({
+                    method : 'POST',
+                    url : 'http://localhost:4000/orders',
+                    data : {
+                        idNhan : idu,
+                        idMoi : this.idMoi,
+                        idTopic : id,
+                    }
+                }).then(res => {
+                    console.log(res.data);
+                    alert("Đã gửi lời mời tham gia hướng dẫn đồ án cho giáo viên " + ten);
+                })
+            }
+
         })
     }
   render() {
@@ -64,13 +88,13 @@ class DanhSachGiaoVien extends Component{
                                                     })}
                                                 </td>
                                                 <td>
-                                                    <button type="button" className="btn btn-warning" onClick={() => this.onClick(this.state.isGV[index].id)}>Chọn</button>
+                                                    <button type="button" className="btn btn-warning" onClick={() => this.onClick(this.state.isGV[index].id, this.state.isGV[index].ten)}>Chọn</button>
                                                 </td>
                                             </tr>
                                 })}
                             </tbody>
                         </table>
-                        
+                        <Link to={'/QuanLyDoAn'} type="button" className="btn btn-success btc">Quay lại</Link>
                     </div>
                 </div>
             </div>  

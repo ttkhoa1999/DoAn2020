@@ -35,7 +35,7 @@ class ThongTin extends Component{
         <div className="mb-15">
           {this.state.isGV ? <Link to={'/QuanLyDoAn'} type="button" className="btn btn-success cy bd ">Quản lý đồ án</Link> : ''}
           <p className="btn btn-success cy bd ml-10 fr">Xin chào {this.state.isGV ? 'giáo viên' : 'sinh viên'} {this.state.ten}</p> 
-          </div>
+        </div>
         {this.state.ds.map((item, index) => {
                 return <div className="panel panel-danger" key={index}>
                           <div className="panel-heading">
@@ -50,14 +50,14 @@ class ThongTin extends Component{
                               <h4>Thành viên: 
                                 {this.state.ds[index].user.map((item) => {
                                   if(item.isGV === false){
-                                  return  <p className="ml-10 mt-5" key={item.id}>Tên: {item.ten}, Email: {item.mssv}@dlu.edu.vn</p>
+                                  return  <p className="ml-10 mt-5" key={item.id}>Tên: {item.ten}, Email: {item.email}</p>
                                   }
                                 })}
                               </h4>
                               <h4>Giáo viên hướng dẫn: 
                                 {this.state.ds[index].user.map((item) => {
                                   if(item.isGV === true){
-                                  return  <p className="ml-10 mt-5" key={item.id}>Tên: {item.ten}, Email: {item.mssv}@dlu.edu.vn</p>
+                                  return  <p className="ml-10 mt-5" key={item.id}>Tên: {item.ten}, Email: {item.email}</p>
                                   }
                                 })}
                               </h4>

@@ -6,26 +6,29 @@ const db = require('../models');
 router.get('/', async (req, res, next) => {
   let idUser = req.cookies.id;
   try {
-    if(idUser === 'undefined'){
+    if(idUser === 'admin'){
       const result0 = await db.Topic.findAll({
         include : {
           model: db.User,
           as: 'user',
         }
       });
-      res.send(result0);
+      res.send({data: result0, message: 'admin'});
     }
     else {
-      const result = await db.User.findOne({where : {id : idUser, isGV : true}})
-      if(result){
-        const result2 = await db.Topic.findAll({
-          where: {ngTao : idUser},
+      const result = await db.User.findOne({
+        where : {id : idUser, isGV : true},
+        include : {
+          model: db.Topic,
+          as: 'topic',
           include : {
             model: db.User,
-            as: 'user',
+            as: 'user'
           }
-        });
-        res.send(result2);
+        }
+      })
+      if(result){
+        res.send({data: result, message: result.ten});
       }
       else res.send('0');
     }
@@ -55,12 +58,34 @@ router.post('/', async (req, res, next) => {
   }
  });
 
+ //Thông tin id
+ router.post('/TTID', async (req, res, next) => {
+  let {id} = req.body;
+  try {
+    const result = await db.Topic.findOne({
+      where: {id},
+      include : {
+        
+          model: db.User,
+          as: 'user',
+          //where: {isGV : 1}
+        
+      }
+    });
+    if(result !== null){
+      res.send(result);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 //Thêm
 router.post('/Them', async (req, res, next) => {
   let {tenDoAn, nenTang, moTa, ngayNop, ngDK} = req.body;
   let ngTao = req.cookies.id;
   try {
-    if(ngTao !== 'undefined'){
+    if(ngTao !== 'admin'){
       const result = await db.Topic.create({tenDoAn, nenTang, moTa, ngayNop, ngDK, ngTao});
       const result1 = await db.User_Topic.create({userId: ngTao, topicId: result.id});
       res.send(result);
@@ -77,7 +102,7 @@ router.post('/Them', async (req, res, next) => {
 //Thêm giáo viên hướng dẫn
 router.post('/:id/ThemGV', async (req, res, next) => {
   let {id} = req.params;
-  let {idUser} = req.body;
+  let idUser = req.cookies.id;
   console.log(id);
   try {
     const result = await db.User_Topic.create({userId: idUser, topicId: id});
