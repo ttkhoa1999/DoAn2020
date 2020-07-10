@@ -82,16 +82,16 @@ router.post('/', async (req, res, next) => {
 
 //Thêm
 router.post('/Them', async (req, res, next) => {
-  let {tenDoAn, nenTang, moTa, ngayNop, ngDK} = req.body;
+  let {tenDoAn, nenTang, loai, moTa, ngayNop, ngDK} = req.body;
   let ngTao = req.cookies.id;
   try {
     if(ngTao !== 'admin'){
-      const result = await db.Topic.create({tenDoAn, nenTang, moTa, ngayNop, ngDK, ngTao});
+      const result = await db.Topic.create({tenDoAn, nenTang, loai, moTa, ngayNop, ngDK, ngTao});
       const result1 = await db.User_Topic.create({userId: ngTao, topicId: result.id});
       res.send(result);
     }
     else {
-      const result = await db.Topic.create({tenDoAn, nenTang, moTa, ngayNop, ngDK});
+      const result = await db.Topic.create({tenDoAn, nenTang, loai, moTa, ngayNop, ngDK});
       res.send(result);
     }
   } catch (error) {
@@ -137,6 +137,27 @@ router.get('/:id/edit', async (req, res, next) => {
   }
 });
 
+//Sửa điểm 
+router.put('/diem', async (req, res, next) => {
+  let {id, lan, diem} = req.body;
+  try {
+    if(lan == 1){
+      const result = await db.Topic.update({lan1:diem},{where: {id}});
+      res.send('s');
+    }
+    if(lan == 2){
+      const result = await db.Topic.update({lan2:diem},{where: {id}});
+      res.send('s');
+    }
+    if(lan == 3){
+      const result = await db.Topic.update({lan3:diem},{where: {id}});
+      res.send('s');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 //Sửa ngày
 router.put('/', async (req, res, next) => {
   let {ngayNop, id, phong} = req.body;
@@ -148,7 +169,18 @@ router.put('/', async (req, res, next) => {
   }
 });
 
-//Sửa phong
+//Sửa ngày theo loại đồ án
+router.put('/ngay', async (req, res, next) => {
+  let {ngayNop, loai} = req.body;
+  try {
+    const result = await db.Topic.update({ngayNop}, {where: {loai}});
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//Sửa phong 
 router.put('/p', async (req, res, next) => {
   let {id, phong} = req.body;
   try {
@@ -159,11 +191,33 @@ router.put('/p', async (req, res, next) => {
   }
 });
 
+//Sửa phong theo loại đồ án
+router.put('/phong', async (req, res, next) => {
+  let {loai, phong} = req.body;
+  try {
+    const result = await db.Topic.update({phong}, {where: {loai}});
+    res.send('s');
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 //Xóa
 router.delete('/:id', async (req, res, next) => {
   let {id} = req.params;
   try {
     const result = await db.Topic.destroy({where : {id}});
+    res.json(result);
+  } catch (error) {
+    res.send(error);
+  }
+ });
+
+ //Kiểm tra trước khi xóa
+ router.get('/:id', async (req, res, next) => {
+  let {id} = req.params;
+  try {
+    const result = await db.User_Topic.findAll({where : {topicId : id}});
     res.json(result);
   } catch (error) {
     res.send(error);

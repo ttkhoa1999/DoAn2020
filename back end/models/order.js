@@ -7,13 +7,21 @@ module.exports = (sequelize, DataTypes) => {
         },
         idNhan: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
           },
         idTopic: {
             type: DataTypes.INTEGER,
             allowNull: false
             // allowNull defaults to true
           },
+        idNhan1: {
+          type: DataTypes.INTEGER,
+          allowNull: true
+        },
+        ck: {
+          type: DataTypes.INTEGER,
+          allowNull: true
+        },
 
       }, {
         tableName: 'orders',

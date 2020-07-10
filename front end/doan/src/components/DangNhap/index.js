@@ -62,7 +62,7 @@ class DangKy extends Component{
                         <form onSubmit={this.onSubmit}>
                         <div className="form-group">
                                 <label>Email</label>
-                                <input type="text" className="form-control" name="email" placeholder="Email" onChange={this.onChange} required pattern="[a-z0-9._%+-]+@dlu.edu.vn"/>
+                                <input type="text" className="form-control" name="email" placeholder="Email" title="Bạn phải nhập đúng MSSV@dlu.edu.vn" onChange={this.onChange} required pattern="[a-z0-9._%+-]+@dlu.edu.vn"/>
                             </div>
                             <div className="form-group">
                                 <label>Password</label>

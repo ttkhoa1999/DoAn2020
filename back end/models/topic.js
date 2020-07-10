@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
             // allowNull defaults to true
           },
+        loai: {
+          type: DataTypes.STRING,
+          allowNull: false
+          // allowNull defaults to true
+        },
         moTa: {
           type: DataTypes.STRING,
           allowNull: false
@@ -19,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         ngDK: {
           type: DataTypes.INTEGER,
           allowNull: false
-      },
+        },
         ngayNop: {
             type: DataTypes.DATE,
             allowNull: true,
@@ -34,7 +39,19 @@ module.exports = (sequelize, DataTypes) => {
         ngTao: {
           type: DataTypes.INTEGER,
           allowNull: true
-      },
+        },
+        lan1: {
+          type: DataTypes.FLOAT,
+          allowNull: true
+        },
+        lan2: {
+          type: DataTypes.FLOAT,
+          allowNull: true
+        },
+        lan3: {
+          type: DataTypes.FLOAT,
+          allowNull: true
+        },
       }, {
         tableName: 'topics',
     });

@@ -57,30 +57,33 @@ class DangKy extends Component{
                 isGV : this.state.isGV,
             }
         }).then(res => {
-            console.log(res);
-            if(res.data === 'nhap ma')
-             alert('Bạn chưa nhập mã đăng ký');
+            if(res.data === 'da ton tai')
+             alert('Email đã đăng ký, vui lòng nhập email mới');
             else {
-                if(res.data === 'ma sai')
-                    alert('Mã đăng ký không đúng, vui lòng nhập lại');
-                    else {
-                        if(res.data === 'sai maGV'){
-                            alert('Mã giáo viên không đúng, vui lòng nhập lại');
-                           }
-                           else {
-                               alert('Đăng ký thành công');
-                               const cookies = new Cookies();
-                               if(res.data.message === '1'){
-                                   cookies.set('id', res.data.result.id, { path: '/' });
-                                   history.push('/QuanLyDoAn');
-                               }
-                               else {
-                                   cookies.set('id', res.data.id, { path: '/' });
-                                   history.push('/DangKyDoAn');
-                               }
-                           }
-                    }         
-            }   
+                if(res.data === 'nhap ma')
+                    alert('Bạn chưa nhập mã đăng ký');
+                else {
+                    if(res.data === 'ma sai')
+                        alert('Mã đăng ký không đúng, vui lòng nhập lại');
+                        else {
+                            if(res.data === 'sai maGV'){
+                                alert('Mã giáo viên không đúng, vui lòng nhập lại');
+                            }
+                            else {
+                                alert('Đăng ký thành công');
+                                const cookies = new Cookies();
+                                if(res.data.message === '1'){
+                                    cookies.set('id', res.data.result.id, { path: '/' });
+                                    history.push('/QuanLyDoAn');
+                                }
+                                else {
+                                    cookies.set('id', res.data.id, { path: '/' });
+                                    history.push('/DangKyDoAn');
+                                }
+                            }
+                        }         
+                }   
+            }
         })
     }   
 
@@ -96,7 +99,7 @@ class DangKy extends Component{
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
                                 <label>Email</label>
-                                <input type="email" className="form-control" name="email" placeholder="Email" onChange={this.onChange} required pattern="[a-z0-9._%+-]+@dlu.edu.vn"/>
+                                <input type="email" className="form-control" name="email" title="Bạn phải nhập đúng MSSV@dlu.edu.vn" placeholder="Email" onChange={this.onChange} required pattern="[a-z0-9._%+-]+@dlu.edu.vn"/>
                             </div>
                             <div className="form-group">
                                 <label>Password</label>

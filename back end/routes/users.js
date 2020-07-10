@@ -10,7 +10,6 @@ var maa = -111;
 //Đăng ký
 router.post('/dk', async (req, res, next) => {
   let {email, password, ten, isGV, isAdmin, ma, maGV} = req.body;
-  console.log('CCC', ma, maa);
   try {
     if(ma == maa){
       const kt = await db.User.findOne({where : {email : email}});
@@ -102,6 +101,21 @@ router.get('/TT', async (req, res, next) => {
           //where: {isGV : 1}
         }
       }
+    });
+    if(result !== null){
+      res.send(result);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//Lấy tên
+router.post('/Ten', async (req, res, next) => {
+  let {idUser} = req.body;
+  try {
+    const result = await db.User.findAll({
+      where: {id: idUser},
     });
     if(result !== null){
       res.send(result);

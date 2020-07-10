@@ -9,6 +9,7 @@ class ThemDoAn extends Component{
         this.state = {
             tenDoAn : '',
             nenTang : '',
+            loai : 'Đồ án cơ sở',
             moTa : '',
             ngDK : '',
         }
@@ -33,6 +34,7 @@ class ThemDoAn extends Component{
             data : {
                 tenDoAn : this.state.tenDoAn,
                 nenTang : this.state.nenTang,
+                loai : this.state.loai,
                 moTa : this.state.moTa,
                 ngDK : this.state.ngDK,
             },
@@ -62,6 +64,15 @@ class ThemDoAn extends Component{
                             <div className="form-group">
                                 <label>Nền tảng</label>
                                 <input type="text" className="form-control" name="nenTang" placeholder="Nền tảng"  onChange={this.onChange}/>
+                            </div>
+                            <div className="form-group">
+                                <label>Loại đồ án</label>
+                                <select className="form-control" name="loai" onChange={this.onChange} Value={this.state.loai}>
+                                    <option value="Đồ án cơ sở">Đồ án cơ sở</option>
+                                    <option value="Đồ án chuyên ngành">Đồ án chuyên ngành</option>
+                                    <option value="Đồ án tốt nghiệp">Đồ án tốt nghiệp</option>
+                                    <option value="Khóa luận">Khóa luận</option>
+                                </select>
                             </div>
                             <div className="form-group">
                                 <label>Mô tả</label>

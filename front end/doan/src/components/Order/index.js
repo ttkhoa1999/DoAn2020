@@ -18,7 +18,7 @@ class Order extends Component{
             data : null,
             withCredentials: true,
           }).then(res => {
-            console.log(res.data);
+            console.log('???', res.data);
             if(res.data !== null){
               this.setState({
                 dso : res.data,
@@ -27,7 +27,7 @@ class Order extends Component{
         })
     }
 
-    onClick = (idT, id) => {
+    onClick = (idT, id, idn) => {
         axios({
             method : 'POST',
             url : `http://localhost:4000/topics/${idT}/ThemGV`,
@@ -44,9 +44,9 @@ class Order extends Component{
                 }
 
                 axios({
-                    method : 'DELETE',
-                    url : `http://localhost:4000/orders/${id}`,
-                    data : null
+                    method : 'PUT',
+                    url : `http://localhost:4000/orders/${id}/dy`,
+                    data : {idNhan1 : idn}
                   }).then(res => {
                     
                   })
@@ -55,11 +55,11 @@ class Order extends Component{
         })
     }
 
-    onClickD = (id) => {
+    onClickD = (id, idn) => {
         axios({
-            method : 'DELETE',
-            url : `http://localhost:4000/orders/${id}`,
-            data : null
+            method : 'PUT',
+            url : `http://localhost:4000/orders/${id}/tc`,
+            data : {idNhan1 : idn}
           }).then(res => {
             let index = this.findId(this.state.dso, id);
             if(index !== -1){
@@ -104,8 +104,8 @@ class Order extends Component{
                                                 <td>{item.Topic.tenDoAn}</td>
                                                 <td>{item.User === null ? 'admin' : item.User.ten}</td>
                                                 <td className="ml-10">
-                                                    <button type="button" className="btn btn-warning" onClick={() => this.onClick(item.Topic.id, item.id)}>Đồng ý</button>
-                                                    <button type="button" className="btn btn-danger ml-10" onClick={() => this.onClickD(item.id)}>Từ chối</button>
+                                                    <button type="button" className="btn btn-warning" onClick={() => this.onClick(item.Topic.id, item.id, item.idNhan)}>Đồng ý</button>
+                                                    <button type="button" className="btn btn-danger ml-10" onClick={() => this.onClickD(item.id, item.idNhan)}>Từ chối</button>
                                                 </td>
                                             </tr>
                                 })}

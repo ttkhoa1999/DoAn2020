@@ -45,8 +45,8 @@ class ThongTin extends Component{
                               <h4>Tên đồ án: {this.state.ds[index].tenDoAn}</h4>
                               <h4>Nền tảng: {this.state.ds[index].nenTang} </h4>
                               <h4>Mô tả: {this.state.ds[index].moTa} </h4>
-                              <h4>Ngày báo cáo: {this.state.ds[index].ngayNop === 'Invalid date' ? 'Chưa cập nhập' : this.state.ds[index].ngayNop} </h4>
-                              <h4>Phòng: {this.state.ds[index].phong === null ? 'Chưa cập nhập' : this.state.ds[index].phong} </h4>
+                              <h4>Ngày báo cáo: {this.state.ds[index].ngayNop === 'Invalid date' ? 'Chưa cập nhật' : this.state.ds[index].ngayNop} </h4>
+                              <h4>Phòng: {this.state.ds[index].phong === null ? 'Chưa cập nhật' : this.state.ds[index].phong} </h4>
                               <h4>Thành viên: 
                                 {this.state.ds[index].user.map((item) => {
                                   if(item.isGV === false){
@@ -60,6 +60,30 @@ class ThongTin extends Component{
                                   return  <p className="ml-10 mt-5" key={item.id}>Tên: {item.ten}, Email: {item.email}</p>
                                   }
                                 })}
+                              </h4>
+                              <h4>
+                              <div className="flex">
+                        <div>
+                          Điểm lần 1: {this.state.ds[index].lan1 === null ?
+                          'Chưa cập nhật'
+                          : this.state.ds[index].lan1}
+                        </div>
+                        <div className="ml-10">
+                          Điểm lần 2: {this.state.ds[index].lan2 === null ?
+                          'Chưa cập nhật'
+                          : this.state.ds[index].lan2}
+                        </div>
+                        <div className="ml-10">
+                          Điểm lần 3: {this.state.ds[index].lan3 === null ?
+                          'Chưa cập nhật'
+                          : this.state.ds[index].lan3}
+                        </div>     
+                        <div className="ml-10">
+                          Điểm tổng kết: {(this.state.ds[index].lan1 === null || this.state.ds[index].lan2 === null || this.state.ds[index].lan3 === null) ?
+                          'Chưa cập nhật'
+                          : Math.round((this.state.ds[index].lan1 * 0.2 + this.state.ds[index].lan2 * 0.2 + this.state.ds[index].lan3 * 0.6) * 100) / 100}
+                        </div> 
+                      </div>
                               </h4>
                           </div>
                 </div>    

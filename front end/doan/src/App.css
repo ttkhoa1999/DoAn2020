@@ -125,3 +125,6 @@ input password{
 .ml-5 {
   margin-left: 5px;
 }
+.b_1px {
+  border: grey solid 2px;
+}

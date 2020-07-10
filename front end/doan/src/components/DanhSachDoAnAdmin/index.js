@@ -4,7 +4,7 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 
 
-class DanhSachDoAn_Admin extends Component{
+class DanhSachDoAnAdmin extends Component{
   constructor(props){
     super(props);
     const cookie = new Cookies();
@@ -136,6 +136,7 @@ class DanhSachDoAn_Admin extends Component{
             <td onClick={() => this.onClick2(ds.id)}>{index + 1}</td>
             <td onClick={() => this.onClick2(ds.id)}>{ds.tenDoAn}</td>
             <td onClick={() => this.onClick2(ds.id)}>{ds.nenTang}</td>
+            <td onClick={() => this.onClick2(ds.id)}>{ds.loai}</td>
             <td onClick={() => this.onClick2(ds.id)}>{ds.moTa}</td>
             <td onClick={() => this.onClick2(ds.id)}>{ds.ngDK}</td>
             {
@@ -187,4 +188,4 @@ class DanhSachDoAn_Admin extends Component{
   
 }
 
-export default DanhSachDoAn_Admin;
+export default DanhSachDoAnAdmin;

@@ -59,6 +59,26 @@ router.get('/', async (req, res, next) => {
     }
   });
 
+//Thông báo 1
+router.get('/tb', async (req, res, next) => {
+  let idMoi= req.cookies.id;
+  if(idMoi === 'admin') idMoi = null;
+  try {
+    const result = await db.Order.findAll({
+      where : {idMoi},
+      include : {
+        model: db.Topic
+        } 
+    });
+    if(result !== null){
+       res.send(result);
+      }
+      
+  } catch (error) {
+    console.log(error);
+  }
+});
+
   //Xóa
   router.delete('/:id', async (req, res, next) => {
     let {id} = req.params;
@@ -69,5 +89,29 @@ router.get('/', async (req, res, next) => {
       res.send(error);
     }
    });
+
+   //Đồng ý
+   router.put('/:id/dy', async (req, res, next) => {
+    let {id} = req.params;
+    let {idNhan1} = req.body;
+    try {
+      const result = await db.Order.update({idNhan : null, idNhan1: idNhan1, ck : 1},{where: {id}});
+      res.send('s');
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  //Từ chối
+  router.put('/:id/tc', async (req, res, next) => {
+    let {id} = req.params;
+    let {idNhan1} = req.body;
+    try {
+      const result = await db.Order.update({idNhan : null, idNhan1: idNhan1, ck : 0},{where: {id}});
+      res.send('s');
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
   module.exports = router;
