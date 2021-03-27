@@ -9,6 +9,9 @@ import Them from './components/Them';
 import DanhSachGiaoVien from './components/DanhSachGiaoVien';
 import SuaDoAn from './components/SuaDoAn';
 import Order from './components/Order';
+import TrangChu from './components/TrangChu';
+import LuaChon from './components/LuaChon';
+import TaoThongBao from './components/TaoThongBao';
 
 
 
@@ -16,7 +19,22 @@ const routes = [
     {
         path : '/',
         exact : true,
+        main : ({history}) => <TrangChu history={history}/>
+    },
+    {
+        path : '/DangNhap',
+        exact : false,
         main : ({history}) => <DangNhap history={history}/>
+    },
+    {
+        path : '/LuaChon',
+        exact : false,
+        main : ({history}) => <LuaChon history={history}/>
+    },
+    {
+        path : '/TaoThongBao',
+        exact : false,
+        main : ({history}) => <TaoThongBao history={history}/>
     },
     {
         path : '/DangKy',
@@ -29,27 +47,27 @@ const routes = [
         main : () => <ThongTin />
     },
     {
-        path : '/DangKyDoAn',
+        path : '/DangKyDoAn/:id',
         exact : false,
-        main : ({history}) => <DangKyDoAn history={history}/>
+        main : ({match,history}) => <DangKyDoAn match={match} history={history}/>
     },
     {
-        path : '/QuanLyDoAn',
+        path : '/QuanLyDoAn/:id',
         exact : false,
-        main : ({history}) => <QuanLyDoAn history={history}/>
+        main : ({match,history}) => <QuanLyDoAn match={match} history={history}/>
     },
     {
-        path : '/Them',
+        path : '/Them/:id',
         exact : false,
-        main : ({history}) => <Them history={history}/>
+        main : ({match, history}) => <Them match={match} history={history}/>
     },
     {
-        path : '/:id/tgv',
+        path : '/:idd/:id/tgv',
         exact : false,
         main : ({match, history}) => <DanhSachGiaoVien match={match} history={history}/>
     },
     {
-        path : '/:id/edit',
+        path : '/:id/:id/edit',
         exact : false,
         main : ({match, history}) => <SuaDoAn match={match} history={history}/>
     },

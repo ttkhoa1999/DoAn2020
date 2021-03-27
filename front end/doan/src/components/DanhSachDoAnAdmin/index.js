@@ -130,7 +130,7 @@ class DanhSachDoAnAdmin extends Component{
 
 
   render() {
-    var {ds, index} = this.props;
+    var {ds, index, idLoai} = this.props;
     return (
       <tr>
             <td onClick={() => this.onClick2(ds.id)}>{index + 1}</td>
@@ -143,7 +143,7 @@ class DanhSachDoAnAdmin extends Component{
               this.id ? '' :
               <td >
                 {ds.ngayNop}
-                <button type="button" className="btn btn-warning ml-10 f" onClick={this.onClick}>CN</button>
+                <button type="button" className="btn btn-warning f" onClick={this.onClick}>CN</button>
                 {this.state.s ? 
                   <div>
                     <input type="date" name="ngayNop" id="input" className="form-control" onChange={this.onChange} value={this.state.ngayNop} required="required" title="" />
@@ -158,7 +158,7 @@ class DanhSachDoAnAdmin extends Component{
               this.id ? '' :
               <td >
                 {ds.phong}
-                <button type="button" className="btn btn-warning ml-10 f" onClick={this.onClick1}>CN</button>
+                <button type="button" className="btn btn-warning f" onClick={this.onClick1}>CN</button>
                 {this.state.n ? 
                   <div>
                     <input type="text" name="phong" id="input" className="form-control" onChange={this.onChange} value={this.state.phong} required="required" title="" />
@@ -176,10 +176,10 @@ class DanhSachDoAnAdmin extends Component{
                             </p>
                     }
                 })}
-              <Link to={`${ds.id}/tgv`}type="button" className="btn btn-primary f" >+</Link>
+              <Link to={`/${idLoai}/${ds.id}/tgv`}type="button" className="btn btn-primary f" >+</Link>
             </td>
             <td>
-            <Link to={`${ds.id}/edit`}type="button" className="btn btn-success" >Sửa</Link>
+            <Link to={`/${idLoai}/${ds.id}/edit`}type="button" className="btn btn-success" >Sửa</Link>
             <button type="button" className="btn btn-danger ml-10" onClick={() => this.onDelete(ds.id, ds.ngTao)}>Xóa</button>
             </td>
       </tr>

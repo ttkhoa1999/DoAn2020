@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import Logo_DLU from '../../images/logo_dlu.png';
 
 
 
-class DangKy extends Component{
+class DangNhap extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -51,8 +52,36 @@ class DangKy extends Component{
     }
   render() {
     return (
+
+        <div className="center">
+            <div className="container">
+                <div className="logo">
+                    <img src={Logo_DLU} alt="DaLat University" />
+                </div>
+                <div className="text">Đăng Nhập</div>
+                <form onSubmit={this.onSubmit}>
+                    <div className="data">
+                        <label>Email</label>
+                        <input type="text" placeholder="Nhập Email" name="email" required  title="Bạn phải nhập đúng MSSV@dlu.edu.vn" onChange={this.onChange} />
+                    </div>
+                    <div className="data">
+                        <label>Password</label>
+                        <input type="password" placeholder="Nhập Mật Khẩu" name="password" required onChange={this.onChange} />
+                    </div>
+                    <div className="forgot-pass">
+                        <a href="#">Quên mật khẩu?</a></div>
+                    <div className="btn">
+                        {/* <div className="inner"> */}
+                        <button className="submit-button" type="submit">Đăng nhập</button>
+                        {/* </div> */}
+                            
+                    </div>
+                        <div className="signup-link">Không có tài khoản? <Link to='/Dangky'>Đăng ký ngay</Link></div>
+                </form>
+            </div>
+        </div>
         
-        <div className="row">
+        /* <div className="row">
             <div className="col-xs- col-sm- col-md-6 col-lg- ml"> 
                 <div className="panel panel-danger ml mt">
                     <div className="panel-heading">
@@ -74,10 +103,10 @@ class DangKy extends Component{
                     </div>
                 </div>
             </div>  
-        </div>
+        </div> */
     );
   }
   
 }
 
-export default DangKy;
+export default DangNhap;

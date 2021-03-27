@@ -58,12 +58,12 @@ router.post('/', async (req, res, next) => {
       const result = await kt.validPassword(password);
       if(result === true){
         if(kt.isAdmin === true){
-          res.send({admin : 1, message: '/QuanLyDoAn'});
+          res.send({admin : 1, message: '/LuaChon'});
         }
         else {
           const kt3 = await db.User.findOne({where : {id : kt.id, isGV : true}})
           if(kt3){
-            res.send({kt: kt.id, isGV : 1, message: '/QuanLyDoAn'});
+            res.send({kt: kt.id, isGV : 1, message: '/LuaChon'});
           }
           else{
             const kt2 = await db.User_Topic.findOne({where : {UserId : kt.id}});
@@ -71,7 +71,7 @@ router.post('/', async (req, res, next) => {
               res.send({kt: kt.id, message: '/ThongTin'});
             }
             else {
-              res.send({kt: kt.id, message: '/DangKyDoAn'});
+              res.send({kt: kt.id, message: '/LuaChon'});
             }
           }
         }

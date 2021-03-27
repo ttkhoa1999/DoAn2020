@@ -10,12 +10,18 @@ class DanhSachGiaoVien extends Component{
         super(props);
         this.state = {
             isGV : [],
+            idLoai : ''
         }
         const cookie = new Cookies();
         this.idMoi = cookie.get('id');
     }
 
     componentDidMount(){
+        const {history, match} = this.props;
+        let {idd} = match.params;
+        this.setState({
+            idLoai : idd
+        })
         axios({
             method : 'GET',
             url : 'http://localhost:4000/users/isGV',
@@ -64,7 +70,7 @@ class DanhSachGiaoVien extends Component{
   render() {
     return (
         <div className="row">
-            <div className="col-xs- col-sm- col-md-6 col-lg- ml"> 
+            <div className="col-xs- col-sm- col-md-9 col-lg- xl"> 
                 <div className="panel panel-danger ml mt">
                     <div className="panel-heading">
                             <h3 className="panel-title mc">Danh sách giáo viên</h3>
@@ -84,7 +90,7 @@ class DanhSachGiaoVien extends Component{
                                                 <td>{item.ten}</td>
                                                 <td>
                                                     {this.state.isGV[index].topic.map((item, index) => {
-                                                        return <p key={index}>{item.tenDoAn}</p>
+                                                        return <p key={index}>- {item.tenDoAn}</p>
                                                     })}
                                                 </td>
                                                 <td>
@@ -94,7 +100,7 @@ class DanhSachGiaoVien extends Component{
                                 })}
                             </tbody>
                         </table>
-                        <Link to={'/QuanLyDoAn'} type="button" className="btn btn-success btc">Quay lại</Link>
+                        <Link to={`/QuanLyDoAn/${this.state.idLoai}`} type="button" className="btn btn-success btc">Quay lại</Link>
                     </div>
                 </div>
             </div>  

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import DanhSachDoAnAdmin from '../DanhSachDoAnAdmin';
 import Cookies from 'universal-cookie';
-import Order from '../Order';
+import Logo from '../../images/logo.jpg';
 
 
 class QuanLyDoAn extends Component{
@@ -14,7 +14,6 @@ class QuanLyDoAn extends Component{
           ten : '',
           s : false,
           infor : '',
-          o : false,
           ngTao : '',
           n : false,
           p : false,
@@ -27,25 +26,28 @@ class QuanLyDoAn extends Component{
           lan3 : '',
           idUser : '',
           tenDA : '',
+          idLoai : '',
         }
         const cookie = new Cookies();
         this.id = cookie.get('id') !== 'admin' ? true : false;
         this.ngTao = cookie.get('id');
     }
     componentDidMount(){
-      const {history} = this.props;
+      const {history, match} = this.props;
+      let {id} = match.params;
+      this.setState({
+        idLoai : id
+      })
         axios({ 
             method : 'GET',
-            url : 'http://localhost:4000/topics',
+            url : `http://localhost:4000/topics/${id}`,
             data : null,
             withCredentials: true,
         }).then(res => {
-          console.log(res.data.data.topic);
           if(res.data === 0){
             history.push('');
           }
           else {
-            console.log(this.id);
             if(!this.id){
               this.setState({
                 danhsach : res.data.data,
@@ -60,75 +62,6 @@ class QuanLyDoAn extends Component{
             }
           }
         })
-
-      axios({ 
-          method : 'GET',
-          url : 'http://localhost:4000/orders/tb',
-          data : null,
-          withCredentials: true,
-        }).then(res => {
-          
-          res.data.map((item, index) => {
-            if(item.ck === 0){
-              this.setState({
-                idUser : item.idNhan1,
-                tenDA : item.Topic.tenDoAn,
-              })
-              axios({ 
-                  method : 'POST',
-                  url : 'http://localhost:4000/users/Ten',
-                  data : {
-                    idUser : this.state.idUser
-                  }
-                }).then(res => {
-                  alert("Giáo viên " + res.data[0].ten + " đã từ chối tham gia hướng dẫn đồ án " + this.state.tenDA);
-              })
-
-              axios({
-                method : 'DELETE',
-                url : `http://localhost:4000/orders/${item.id}`,
-                data : null
-              }).then(res => {
-
-              })
-            }
-            if(item.ck === 1){
-              this.setState({
-                idUser : item.idNhan1,
-                tenDA : item.Topic.tenDoAn,
-              })
-              axios({ 
-                  method : 'POST',
-                  url : 'http://localhost:4000/users/Ten',
-                  data : {
-                    idUser : this.state.idUser
-                  }
-                }).then(res => {
-                  alert("Giáo viên " + res.data[0].ten + " đã đồng ý tham gia hướng dẫn đồ án " + this.state.tenDA);
-              })
-              axios({
-                method : 'DELETE',
-                url : `http://localhost:4000/orders/${item.id}`,
-                data : null
-              }).then(res => {
-
-              })
-            }
-          })
-        })
-
-      axios({ 
-          method : 'GET',
-          url : 'http://localhost:4000/orders',
-          data : null,
-          withCredentials: true,
-        }).then(res => {
-          if(res.data.length !== 0){
-            this.setState({
-              o : !this.state.o,
-            })
-          }
-      })
 
       }
       onClickS = (id, ngayNop) => {
@@ -168,7 +101,7 @@ class QuanLyDoAn extends Component{
       onClickI = (id) => {
         axios({
           method : 'POST',
-          url : 'http://localhost:4000/topics/TTID',
+          url : `http://localhost:4000/topics/${this.state.idLoai}/TTID`,
           data : {
             id : id,
           }
@@ -192,7 +125,7 @@ class QuanLyDoAn extends Component{
         if(ngTao === this.ngTao || !this.id){
           axios({
             method : 'POST',
-            url : 'http://localhost:4000/topics/TTID',
+            url : `http://localhost:4000/topics/${this.state.idLoai}/TTID`,
             data : {
               id : id,
             }
@@ -202,7 +135,7 @@ class QuanLyDoAn extends Component{
                 let {danhsach} = this.state;
                 axios({
                   method : 'DELETE',
-                  url : `http://localhost:4000/topics/${id}`,
+                  url : `http://localhost:4000/topics/${this.state.idLoai}/${id}`,
                   data : null
                 }).then(res => {
                   if(res.status === 200){
@@ -222,7 +155,7 @@ class QuanLyDoAn extends Component{
                 let {danhsach} = this.state;
                 axios({
                   method : 'DELETE',
-                  url : `http://localhost:4000/topics/${id}`,
+                  url : `http://localhost:4000/topics/${this.state.idLoai}/${id}`,
                   data : null
                 }).then(res => {
                   if(res.status === 200){
@@ -331,15 +264,22 @@ class QuanLyDoAn extends Component{
       this.name = this.state.ten === 'admin' ? true : false;
       let {danhsach} = this.state;
     return (
+
       <div className="st">
-        <div className="mb-15">
-          <p className="btn btn-success cy bd ml-10 fr">Xin chào {this.name ? '' : 'giáo viên'} {this.state.ten}</p> 
-        </div>
-        {
-          this.state.o ? 
-            <Order />
-          : ''
-        }
+
+      <div>
+            <div class="col-sm-12" style={{textAlign: 'center'}}>
+                <img id="imgLogo" style={{maxHeight: '130px', width: '100%'}}  src={Logo} />
+            </div>
+
+            <div class="container-fluid padding">
+                <div class="row padding">
+                    <div class="col-lg-12">
+                        <div class="divmain cc">
+                            <div class="bgtitle" style={{textAlign: 'center', fontSize: '20px'}}>Danh sách
+                            <Link to={'/LuaChon'} type="button" className="btn btn-success" style={{float: 'left', marginTop: '-0.5%', width: 'auto'}}>Quay lại</Link>                              
+                            </div>
+                            <div className=" col-lg-13 ">
         {
           this.state.s ? 
             <div className="panel panel-primary">
@@ -429,12 +369,8 @@ class QuanLyDoAn extends Component{
               </div>
           : ''   
         }
-        <div className="panel panel-danger">
-              <div className="panel-heading mc">
-                    <h3 className="panel-title">Danh sách đồ án</h3>
-              </div>
+        <div className="panel panel-danger ds1">
               <div className="panel-body">
-                  <Link to={'/Them'} type="button" className="btn btn-default cy bd">Thêm đồ án</Link>
                   {/* {this.id ? <Link to={'/ThongTin'} type="button" className="btn btn-default cy bd ml-5">Quay lại</Link> : ''} */}
                     <table className="table table-hover">
                         <thead>
@@ -447,8 +383,8 @@ class QuanLyDoAn extends Component{
                                 <th>Số người</th>
                                 {
                                   this.id ? '' :
-                                  <th>Ngày báo cáo
-                                    <button type="button" className="btn btn-warning ml-10 f" onClick={this.onClickALLN}>ALL</button>
+                                  <th style={{width: '100px'}}>Ngày báo cáo
+                                    <button type="button" className="btn btn-warning f" onClick={this.onClickALLN}>ALL</button>
                                     {this.state.n ? 
                                       <div>
                                         <div className="form-group">
@@ -470,10 +406,10 @@ class QuanLyDoAn extends Component{
                                 }
                                 {
                                   this.id ? '' :
-                                  <th>Phòng
-                                    <button type="button" className="btn btn-warning ml-10 f" onClick={this.onClickALLP}>ALL</button>
+                                  <th style={{width: '10px'}}>Phòng
+                                    <button type="button" className="btn btn-warning  f" onClick={this.onClickALLP}>ALL</button>
                                     {this.state.p ? 
-                                      <div>
+                                      <div style={{width: '200px'}}> 
                                         <div className="form-group">
                                           <label>Loại đồ án</label>
                                           <select className="form-control" name="loai" onChange={this.onChange} Value={this.state.loai}>
@@ -491,7 +427,10 @@ class QuanLyDoAn extends Component{
                                     }
                                   </th>
                                 }
-                                <th>Giáo viên hướng dẫn</th>
+                                <th style={{width: '300px'}}>Giáo viên hướng dẫn</th>
+                                <th>
+                                  <Link to={`/Them/${this.state.idLoai}`} type="button" className="btn btn-default cy bd">Thêm đồ án</Link>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -501,6 +440,31 @@ class QuanLyDoAn extends Component{
               </div>
         </div>
       </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid padding">	
+                    <div class="row text-center padding">
+                        <div class="col-12">
+                            <h2>Contact us</h2>
+                        </div>
+                        <div className="col-12 social padding">
+                            <a href="#"><i className="fab fa-facebook" /></a>
+                            <a href="#"><i className="fab fa-twitter" /></a>
+                            <a href="#"><i className="fab fa-google-plus-g" /></a>
+                            <a href="#"><i className="fab fa-instagram" /></a>
+                            <a href="#"><i className="fab fa-youtube" /></a>
+                        </div>
+                    </div>
+                </div>	
+                <footer>
+                    
+                </footer>
+            </div>
+        </div>
+
     );
   }
 
@@ -512,6 +476,7 @@ class QuanLyDoAn extends Component{
                 <DanhSachDoAnAdmin
                   key={index}
                   ds={ds}
+                  idLoai = {this.state.idLoai}
                   index={index}
                   onDelete={this.onDelete}
                   onClickS={this.onClickS}

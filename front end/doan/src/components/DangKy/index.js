@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import Logo_DLU from '../../images/logo_dlu.png';
 
 
 
@@ -74,11 +75,11 @@ class DangKy extends Component{
                                 const cookies = new Cookies();
                                 if(res.data.message === '1'){
                                     cookies.set('id', res.data.result.id, { path: '/' });
-                                    history.push('/QuanLyDoAn');
+                                    history.push('/LuaChon');
                                 }
                                 else {
                                     cookies.set('id', res.data.id, { path: '/' });
-                                    history.push('/DangKyDoAn');
+                                    history.push('/LuaChon');
                                 }
                             }
                         }         
@@ -89,45 +90,45 @@ class DangKy extends Component{
 
   render() {
     return (
-        <div className="row">
-            <div className="col-xs- col-sm- col-md-6 col-lg- ml"> 
-                <div className="panel panel-danger ml mt">
-                    <div className="panel-heading">
-                            <h3 className="panel-title mc">Đăng ký</h3>
-                    </div>
-                    <div className="panel-body">
-                        <form onSubmit={this.onSubmit}>
-                            <div className="form-group">
-                                <label>Email</label>
-                                <input type="email" className="form-control" name="email" title="Bạn phải nhập đúng MSSV@dlu.edu.vn" placeholder="Email" onChange={this.onChange} required pattern="[a-z0-9._%+-]+@dlu.edu.vn"/>
-                            </div>
-                            <div className="form-group">
-                                <label>Password</label>
-                                <input type="password" className="form-control" name="password" placeholder="password"  onChange={this.onChange} required/>
-                            </div>
-                            <div className="form-group">
-                                <label>Họ và tên</label>
-                                <input type="text" className="form-control" name="ten" placeholder="Họ và tên"  onChange={this.onChange} required/>
-                            </div>
-                            <div className="form-group">
-                                <label>Mã đăng ký</label>
-                                <div className="flex">
-                                    <input type="text" className="form-control w2" name="ma" placeholder="Mã đăng ký"  onChange={this.onChange} required/>
-                                    <button type="button" className="btn btn-primary ml-5" onClick={this.onClick}>Lấy mã</button>
-                                </div>
-                            </div>
-                            <div className="checkbox">
-                                <label>
-                                    <input type="checkbox" name="isGV" value={this.state.isGV} defaultChecked={this.state.isGV} onChange={this.onChange}/>
-                                    Giáo viên
-                                </label>
-                                {this.state.isGV ? <input type="text" className="form-control w2" name="maGV" placeholder="Mã GV"  onChange={this.onChange}/> : ''}
-                            </div>
-                            <button type="submit" className="btn btn-primary btc pd">Đăng ký</button>
-                        </form> 
+        <div className="center">
+          <div className="container">
+            <div className="logo">
+              <img src={Logo_DLU} alt="DaLat University" />
+            </div>
+            <div className="text">Đăng Ký</div>
+            <form onSubmit={this.onSubmit}>
+              <div className="data">
+                <label>Email</label>
+                <input type="email" className="form-control" name="email" title="Bạn phải nhập đúng MSSV@dlu.edu.vn" placeholder="Email" onChange={this.onChange} required pattern="[a-z0-9._%+-]+@dlu.edu.vn"/>
+              </div>
+              <div className="data">
+                <label>Password</label>
+                <input type="password" className="form-control" name="password" placeholder="password"  onChange={this.onChange} required/>
+              </div>
+              <div className="data">
+                <label>Họ và Tên</label>
+                <input type="text" className="form-control" name="ten" placeholder="Họ và tên"  onChange={this.onChange} required/>
+              </div>
+              <div className="form-group">
+                    <label style={{fontSize: "18px"}}>Mã đăng ký</label>
+                    <div className="flex">
+                        <input type="text" className="form-control w2" name="ma" placeholder="Mã đăng ký"  onChange={this.onChange} required/>
+                        <button type="button" className="btn-primary btn1" onClick={this.onClick}>Lấy mã</button>
                     </div>
                 </div>
-            </div>  
+              <div className="checkbox">
+                    <label>
+                        <input type="checkbox"  name="isGV" value={this.state.isGV} defaultChecked={this.state.isGV} onChange={this.onChange}/>
+                        Giáo viên
+                    </label>
+                    {this.state.isGV ? <input type="text" className="form-control w2" name="maGV" placeholder="Mã GV"  onChange={this.onChange}/> : ''}
+               </div>
+              <div className="btn">
+                {/* <div className="inner" /> */}
+                <button className="submit-button"type="submit">Đăng Ký</button>
+              </div>
+            </form>
+          </div>
         </div>
     );
   }

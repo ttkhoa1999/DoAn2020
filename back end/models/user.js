@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
             User.password = await bcrypt.hash(User.password, salt);
           }
         }
+      },
+      {
+        charset: 'utf8',
+        collate: 'utf8_unicode_ci'
       }
     );
 

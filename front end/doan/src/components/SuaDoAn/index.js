@@ -61,7 +61,7 @@ class SuaDoAn extends Component{
         }).then(res => {
             if(res.data === 's'){
                 alert('Sửa đồ án thàng công');
-                history.push('/QuanLyDoAn');
+                history.goBack();
             }
             else alert('Có lỗi xảy ra, xin thử lại');
         })

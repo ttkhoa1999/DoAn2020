@@ -26,11 +26,12 @@ class ThemDoAn extends Component{
     
     onSubmit = (e) => {
         e.preventDefault();
-        const {history} = this.props;
+        const {history, match} = this.props;
+        let {id} = match.params;
         e.preventDefault();
         axios({
             method : 'POST',
-            url : 'http://localhost:4000/topics/Them',
+            url : `http://localhost:4000/topics/Them/${id}`,
             data : {
                 tenDoAn : this.state.tenDoAn,
                 nenTang : this.state.nenTang,
@@ -42,7 +43,7 @@ class ThemDoAn extends Component{
         }).then(res => {
             if(res.data){
                 alert('Thêm đồ án thàng công');
-                history.push('/QuanLyDoAn');
+                history.push(`/QuanLyDoAn/${id}`);
             }
             else alert('Có lỗi xảy ra, xin thử lại');
         })

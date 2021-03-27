@@ -52,7 +52,12 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.FLOAT,
           allowNull: true
         },
-      }, {
+      },
+      {
+        charset: 'utf8',
+        collate: 'utf8_unicode_ci'
+      },
+       {
         tableName: 'topics',
     });
     Topic.associate = function(models) {

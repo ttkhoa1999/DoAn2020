@@ -3,11 +3,26 @@ var router = express.Router();
 const db = require('../models');
 
 //Hiển thị cho admin
-router.get('/', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   let idUser = req.cookies.id;
+  let {id} = req.params;
+  if (id == 'DACS') {
+    id = 'Đồ án cơ sở'
+  } else {
+    if (id == 'DACN') {
+      id = 'Đồ án chuyên ngành'
+    } else {
+      if (id == 'DATN') {
+        id = 'Đồ án tốt nghiệp'
+      } else {
+        id = 'Khóa luận'
+      }
+    }
+  }  
   try {
     if(idUser === 'admin'){
       const result0 = await db.Topic.findAll({
+        where : {loai : id},
         include : {
           model: db.User,
           as: 'user',
@@ -20,6 +35,7 @@ router.get('/', async (req, res, next) => {
         where : {id : idUser, isGV : true},
         include : {
           model: db.Topic,
+          where : {loai : id},
           as: 'topic',
           include : {
             model: db.User,
@@ -30,7 +46,6 @@ router.get('/', async (req, res, next) => {
       if(result){
         res.send({data: result, message: result.ten});
       }
-      else res.send('0');
     }
   } catch (error) {
     console.log(error)
@@ -38,10 +53,25 @@ router.get('/', async (req, res, next) => {
  });
 
 //Hiển thị ?
-router.post('/', async (req, res, next) => {
+router.post('/:id', async (req, res, next) => {
   let idUser = req.cookies.id;
+  let {id} = req.params;
+  if (id == 'DACS') {
+    id = 'Đồ án cơ sở'
+  } else {
+    if (id == 'DACN') {
+      id = 'Đồ án chuyên ngành'
+    } else {
+      if (id == 'DATN') {
+        id = 'Đồ án tốt nghiệp'
+      } else {
+        id = 'Khóa luận'
+      }
+    }
+  }
   try {
     const result = await db.Topic.findAll({
+      where : {loai : id},
       include : {
         model: db.User,
         as: 'user',
@@ -59,7 +89,7 @@ router.post('/', async (req, res, next) => {
  });
 
  //Thông tin id
- router.post('/TTID', async (req, res, next) => {
+ router.post('/:id/TTID', async (req, res, next) => {
   let {id} = req.body;
   try {
     const result = await db.Topic.findOne({
@@ -81,7 +111,7 @@ router.post('/', async (req, res, next) => {
 });
 
 //Thêm
-router.post('/Them', async (req, res, next) => {
+router.post('/Them/:id', async (req, res, next) => {
   let {tenDoAn, nenTang, loai, moTa, ngayNop, ngDK} = req.body;
   let ngTao = req.cookies.id;
   try {
@@ -203,7 +233,7 @@ router.put('/phong', async (req, res, next) => {
 });
 
 //Xóa
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id/:id', async (req, res, next) => {
   let {id} = req.params;
   try {
     const result = await db.Topic.destroy({where : {id}});
@@ -225,10 +255,9 @@ router.delete('/:id', async (req, res, next) => {
  });
 
  //Đăng ký đề tài
- router.post('/dkda', async (req, res, next) => {
+ router.post('/dkda/:id', async (req, res, next) => {
   let {id} = req.body;
   let idUser = req.cookies.id;
-  console.log(req);
   try {
     const result = await db.User_Topic.findOne({where : {userId: idUser}});
     if(result){
