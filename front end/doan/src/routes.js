@@ -12,6 +12,7 @@ import Order from './components/Order';
 import TrangChu from './components/TrangChu';
 import LuaChon from './components/LuaChon';
 import TaoThongBao from './components/TaoThongBao';
+import QLND from './components/QLND';
 
 
 
@@ -35,6 +36,11 @@ const routes = [
         path : '/TaoThongBao',
         exact : false,
         main : ({history}) => <TaoThongBao history={history}/>
+    },
+    {
+        path : '/QLND',
+        exact : false,
+        main : ({history}) => <QLND history={history}/>
     },
     {
         path : '/DangKy',

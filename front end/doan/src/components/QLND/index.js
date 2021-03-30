@@ -9,20 +9,50 @@ import New from '../../images/new.png';
 
 
 
-class LuaChon extends Component{
+class QLND extends Component{
     constructor(props){
         super(props);
         this.state = {
             ten : 'admin',
             isSV : false,
             o : false,
-            op : false
+            op : false,
+            ds : [],
+            sE : '',
+            dsF : [],
+            hienThi : false,
+            infor : [],
           }
     }
 
     onClick = () => {
         this.setState({
             op : !this.state.op
+        })
+    }
+
+    onChange = ({target}) => {
+        this.setState({
+            [target.name] : target.value.toLowerCase()
+        })
+    }
+
+    onClickInfo = (id) => {
+        this.setState({
+            infor : []
+          })
+        axios({
+            method : 'POST',
+            url : 'http://localhost:4000/users/TTID',
+            data : {
+              id : id,
+            }
+        }).then(res => {
+            console.log(res.data);
+          this.setState({
+            infor : res.data[0],
+            hienThi : true,
+          })
         })
     }
 
@@ -45,87 +75,64 @@ class LuaChon extends Component{
           }
         })
 
-        axios({ 
+        axios({
             method : 'GET',
-            url : 'http://localhost:4000/orders/tb',
+            url : 'http://localhost:4000/users/allUser',
             data : null,
-            withCredentials: true,
-          }).then(res => {
-            
-            res.data.map((item, index) => {
-              if(item.ck === 0){
-                this.setState({
-                  idUser : item.idNhan1,
-                  tenDA : item.Topic.tenDoAn,
-                })
-                axios({ 
-                    method : 'POST',
-                    url : 'http://localhost:4000/users/Ten',
-                    data : {
-                      idUser : this.state.idUser
-                    }
-                  }).then(res => {
-                    alert("Giáo viên " + res.data[0].ten + " đã từ chối tham gia hướng dẫn đồ án " + this.state.tenDA);
-                })
-  
-                axios({
-                  method : 'DELETE',
-                  url : `http://localhost:4000/orders/${item.id}`,
-                  data : null
-                }).then(res => {
-  
-                })
-              }
-              if(item.ck === 1){
-                this.setState({
-                  idUser : item.idNhan1,
-                  tenDA : item.Topic.tenDoAn,
-                })
-                axios({ 
-                    method : 'POST',
-                    url : 'http://localhost:4000/users/Ten',
-                    data : {
-                      idUser : this.state.idUser
-                    }
-                  }).then(res => {
-                    alert("Giáo viên " + res.data[0].ten + " đã đồng ý tham gia hướng dẫn đồ án " + this.state.tenDA);
-                })
-                axios({
-                  method : 'DELETE',
-                  url : `http://localhost:4000/orders/${item.id}`,
-                  data : null
-                }).then(res => {
-  
-                })
-              }
+        }).then(res => {
+            console.log(res);
+            this.setState({
+                ds : res.data,
             })
-          })
-
-        axios({ 
-            method : 'GET',
-            url : 'http://localhost:4000/orders',
-            data : null,
-            withCredentials: true,
-          }).then(res => {
-            if(res.data.length !== 0){
-              this.setState({
-                o : !this.state.o,
-              })
-            }
         })
+
     }
 
 
   render() {
+    if (this.state.sE !== '') {
+        this.state.dsF = this.state.ds.filter((item) => {
+            return item.email.toLowerCase().indexOf(this.state.sE) !== -1
+        })
+    } else {
+        this.state.dsF = []
+    }
     return (
         <div>
             <div class="col-sm-12" style={{textAlign: 'center'}}>
                 <img id="imgLogo" style={{maxHeight: '130px', width: '100%'}}  src={Logo} />
             </div>
 
-            {
-                this.state.op ? 
-                    <Order />
+
+            {this.state.hienThi 
+                ? 
+                <div class="modal-dialog modal-dialog-centered modal modal-mainx display-block">
+                    
+                    <div class="modal-content">
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-default"onClick={() => {this.setState({hienThi : !this.state.hienThi})}}>Close</button>
+                        </div>
+                        <div class="modal-body">
+                            {
+                                this.state.infor.isGV === false
+                                ? <h2 class="modal-title">Sinh viên: {this.state.infor.ten}</h2>
+                                : <h2 class="modal-title">Giảng viên: {this.state.infor.ten}</h2>
+                            }
+                        </div>
+                        <div class="modal-header">
+                            <p>Email: {this.state.infor.email}</p>
+                            {   
+                                this.state.infor.topic.length === 0 
+                                ? <p>Chưa có thông tin đồ án</p>
+                                :   this.state.infor.isGV === false
+                                    ? <p class="modal-title">Đồ án đăng ký: {this.state.infor.topic[0].tenDoAn}</p>
+                                    : <p class="modal-title">Đồ án hướng dẫn: {this.state.infor.topic.map((item) => {return <p>- {item.tenDoAn}</p>})}</p>
+                            }
+                        </div>
+                    </div>
+                    
+                </div>
+                
                 : ''
             }
 
@@ -193,32 +200,49 @@ class LuaChon extends Component{
 
                     <div class="col-lg-9">
                         <div class="divmain">
-                            <div class="bgtitle">Loại đồ án</div>
+                            <div class="bgtitle">Danh sách người dùng</div>
                             <div className=" col-lg-13 allk ">
-                                <div className="khung">
-                                    {this.state.isSV
-                                        ? <Link to={`DangKyDoAn/${'DACS'}`}><h3>Đồ án cơ sở</h3></Link>
-                                        : <Link to={`QuanLyDoAn/${'DACS'}`}><h3>Đồ án cơ sở</h3></Link>
+                                
+                            <table className="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style={{borderLeft: "2px solid white"}}></th>
+                                        <th style={{borderLeft: "2px solid white"}}></th>                                      
+                                        <th>
+                                            <div style={{display: "flex"}}>
+                                                <input type="search" name="sE" id="input" class="form-control" value={this.state.sE} required="required" title="Tìm theo email" placeholder="Tìm theo email" onChange={this.onChange} />   
+                                            </div>                                         
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Họ và tên</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        this.state.dsF.length !== 0
+                                        ? this.state.dsF.map((item, index) => {
+                                            return <tr onClick={() => this.onClickInfo(item.id)}>
+                                                        <th>{index}</th>
+                                                        <th>{item.ten}</th>
+                                                        <th>{item.email}</th>
+                                                    </tr>
+                                            })
+                                        : this.state.ds.map((item, index) => {
+                                            return <tr onClick={() => this.onClickInfo(item.id)}>
+                                                        <th>{index}</th>
+                                                        <th>{item.ten}</th>
+                                                        <th>{item.email}</th>
+                                                    </tr>
+                                        })
                                     }
-                                </div>
-                                <div className="khung">
-                                    {this.state.isSV
-                                        ? <Link to={`DangKyDoAn/${'DACN'}`}><h3>Đồ án chuyên ngành</h3></Link>
-                                        : <Link to={`QuanLyDoAn/${'DACN'}`}><h3>Đồ án chuyên ngành</h3></Link>
-                                    }
-                                </div>
-                                <div className="khung">
-                                    {this.state.isSV
-                                        ? <Link to={`DangKyDoAn/${'DATN'}`}><h3>Đồ án tốt nghiệp</h3></Link>
-                                        : <Link to={`QuanLyDoAn/${'DATN'}`}><h3>Đồ án tốt nghiệp</h3></Link>
-                                    }
-                                </div>
-                                <div className="khung">
-                                    {this.state.isSV
-                                        ? <Link to={`DangKyDoAn/${'KL'}`}><h3>Khóa luận tốt nghiệp</h3></Link>
-                                        : <Link to={`QuanLyDoAn/${'KL'}`}><h3>Khóa luận tốt nghiệp</h3></Link>
-                                    }
-                                </div>
+                                </tbody>
+                            </table>
+
                             </div>
                         </div>
                     </div>
@@ -248,4 +272,4 @@ class LuaChon extends Component{
   
 }
 
-export default LuaChon;
+export default QLND;

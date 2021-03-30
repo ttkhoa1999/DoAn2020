@@ -107,7 +107,7 @@ class TrangChu extends Component{
                         </div>
                     </div>
 
-                    <div class="col-lg-9">
+                    <div class="col-sx-9 col-sm-9 col-md-9 col-lg-9">
                         <div class="divmain">
                             <div class="bgtitle">Thông báo chung</div>
                             {this.state.tb.map((item, index) => {

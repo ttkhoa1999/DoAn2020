@@ -110,6 +110,30 @@ router.get('/TT', async (req, res, next) => {
   }
 });
 
+//Thong tin id
+router.post('/TTID', async (req, res, next) => {
+  let {id} = req.body;
+  try {
+    const result = await db.User.findAll({
+      where: {id: id},
+      include : {
+        model: db.Topic,
+        as: 'topic',
+        include: {
+          model: db.User,
+          as: 'user',
+          //where: {isGV : 1}
+        }
+      }
+    });
+    if(result !== null){
+      res.send(result);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 //Lấy tên
 router.post('/Ten', async (req, res, next) => {
   let {idUser} = req.body;
@@ -130,6 +154,20 @@ router.get('/isGV', async (req, res, next) => {
   try {
     const kt = await db.User.findAll({
       where : {isGV : 1},
+      include : {
+        model: db.Topic,
+        as: 'topic' 
+      }
+    });
+    res.send(kt);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get('/allUser', async (req, res, next) => {
+  try {
+    const kt = await db.User.findAll({
       include : {
         model: db.Topic,
         as: 'topic' 
