@@ -76,24 +76,26 @@ class SuaDoAn extends Component{
                     </div>
                     <div className="panel-body">
                         <form onSubmit={this.onSubmit}>
-                            <div className="form-group">
+                            <div className="data">
                                 <label>Tên</label>
                                 <input type="text" className="form-control" name="tenDoAn" placeholder="Tên đồ án" onChange={this.onChange} value={this.state.tenDoAn}/>
                             </div>
-                            <div className="form-group">
+                            <div className="data">
                                 <label>Nền tảng</label>
                                 <input type="text" className="form-control" name="nenTang" placeholder="Nền tảng"  onChange={this.onChange} value={this.state.nenTang}/>
                             </div>
-                            <div className="form-group">
+                            <div className="data">
                                 <label>Mô tả</label>
                                 <textarea type="text" className="form-control" name="moTa" placeholder="Mô tả"  onChange={this.onChange} value={this.state.moTa}/>
                             </div>
-                            <div className="form-group">
+                            <div className="data">
                                 <label>Số lượng</label>
                                 <input type="number" min='1' max='3' className="form-control" name="ngDK" onChange={this.onChange} value={this.state.ngDK}/>
                             </div>
              
-                            <button type="submit" className="btn btn-primary mt btc">Lưu</button>
+                            <div className="btn">
+                                <button type="submit" className="submit-button">Lưu</button>
+                            </div>
                         </form> 
                     </div>
                 </div>

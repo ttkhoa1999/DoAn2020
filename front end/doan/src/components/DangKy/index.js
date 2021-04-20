@@ -123,9 +123,8 @@ class DangKy extends Component{
                     </label>
                     {this.state.isGV ? <input type="text" className="form-control w2" name="maGV" placeholder="Mã GV"  onChange={this.onChange}/> : ''}
                </div>
-               <div class="btn">
-                    <div class="inner"></div>
-                    <button type="submit">Đăng Ký</button>
+               <div className="btn">
+                    <button className="submit-button" type="submit">Đăng Ký</button>
                 </div>
             </form>
           </div>

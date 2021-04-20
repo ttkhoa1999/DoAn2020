@@ -125,6 +125,10 @@ input password{
 .flex {
   display: flex;
 }
+.btnsubmit {
+  background-color: #78fa3c;
+  padding: 10px 10px;
+}
 .btn1 {
   width: 90%;
   height: 34px;
@@ -133,7 +137,10 @@ input password{
   border-radius: 4px;
   font-size: 20px;
   margin-left: 2%;
-  background-color: #5afd0e;
+  background-color: #78fa3c;
+}
+.btn1:hover {
+  background-color: #54fc06;
 }
 .ml-5 {
   margin-left: 5px;
@@ -234,7 +241,9 @@ html, body {
 .khung a{
   text-decoration: none;
 }
-
+.center {
+  margin-left: 40%;
+}
 .bgcontent{
 	margin-top: 0.5rem;
 }
@@ -383,6 +392,9 @@ body{
   height: 45px;
   width: 100%;
   margin: 40px 0;
+}
+.checkbox {
+  font-size: 17px;
 }
 form .data label{
   font-size: 18px;

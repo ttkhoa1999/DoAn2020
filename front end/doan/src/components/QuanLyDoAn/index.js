@@ -28,11 +28,12 @@ class QuanLyDoAn extends Component{
           tenDA : '',
           idLoai : '',
           cp : false,
-          ng : false
+          ng : false,
         }
         const cookie = new Cookies();
         this.id = cookie.get('id') !== 'admin' ? true : false;
         this.ngTao = cookie.get('id');
+        this.id1 = cookie.get('id');
     }
     componentDidMount(){
       const {history, match} = this.props;
@@ -65,6 +66,62 @@ class QuanLyDoAn extends Component{
           }
         })
 
+      }
+
+      onDeleteGV = (idGV, id, ngTao) => {
+        const {ds} = this.props;
+        if(ngTao === null){
+          if(this.id1 == idGV || !this.id){
+            if(confirm('Bạn có chắc chắn muốn xóa không ?')){ //eslint-disable-line
+              axios({
+                method : 'DELETE',
+                url : `http://localhost:4000/users/${idGV}`,
+                data : {
+                  idTopic : id,
+                }
+              }).then(res => {
+                if(res.status === 200){
+                  let index = this.findId(ds.user, idGV);
+                  console.log(index);
+                  if(index !== -1){
+                    ds.user.splice(index, 1);
+                    this.setState({
+                      ds : this.ds
+                    })
+                  }
+                }
+              })
+              window.location.reload(false);
+            }
+          }
+          else alert('Bạn không thể xóa');
+        }
+        else {
+          if(ngTao !== idGV || !this.id){
+            if(confirm('Bạn có chắc chắn muốn xóa không ?')){ //eslint-disable-line
+              axios({
+                method : 'DELETE',
+                url : `http://localhost:4000/users/${idGV}`,
+                data : {
+                  idTopic : id,
+                }
+              }).then(res => {
+                if(res.status === 200){
+                  let index = this.findId(ds.user, idGV);
+                  console.log(index);
+                  if(index !== -1){
+                    ds.user.splice(index, 1);
+                    this.setState({
+                      ds : this.ds
+                    })
+                  }
+                }
+              })
+              window.location.reload(false);
+            }
+          }
+          else alert('Bạn không thể xóa');
+        }
       }
 
       onClickChangeP = () => {
@@ -305,7 +362,7 @@ class QuanLyDoAn extends Component{
           this.state.s ? 
             <div className="panel panel-primary">
                 <div className="panel-heading flex">
-                    <h3 className="panel-title">Thông tin chi tiết</h3>
+                    <h3 className="panel-title" style={{width: '200px'}}>Thông tin chi tiết</h3>
                     <button type="button" class="btn btn-lg btn-danger fx xx wcn" onClick={this.onClickD}>X</button>
                 </div>
                 <div className="panel-body">
@@ -338,14 +395,17 @@ class QuanLyDoAn extends Component{
                     <h4>Thành viên: 
                       {this.state.infor.user.map((item) => {
                         if(item.isGV === false){
-                        return  <p className="ml-10 mt-5" key={item.id}>Tên: {item.ten}, Email: {item.mssv}@dlu.edu.vn</p>
+                        return  <p className="ml-10 mt-5" key={item.id}>Tên: {item.ten}, Email: {item.email}</p>
                         }
                       })}
                     </h4>
-                    <h4>Giáo viên hướng dẫn: 
-                      {this.state.infor.user.map((item) => {
+                    <h4>Giáo viên hướng dẫn:
+                      <Link to={`/${this.state.idLoai}/${this.state.infor.id}/tgv`}type="button" className="btn btn-primary f fz" >+</Link> 
+                      {this.state.infor.user.map((item, index) => {
                         if(item.isGV === true){
-                        return  <p className="ml-10 mt-5" key={item.id}>Tên: {item.ten}, Email: {item.mssv}@dlu.edu.vn</p>
+                        return  <p className="ml-10 mt-5" key={item.id}>Tên: {item.ten}, Email: {item.email}
+                                    <button type="button" className="btn btn-warning ml-10 f" onClick={() => this.onDeleteGV(this.state.infor.user[index].id, this.state.infor.id, this.state.infor.ngTao)}>-</button>
+                                </p>
                         }
                       })}
                     </h4>
