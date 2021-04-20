@@ -5,13 +5,14 @@ var nodemailer =  require('nodemailer');
 require('dotenv').config();
 
 
-var maa = -111;
 
 //Đăng ký
 router.post('/dk', async (req, res, next) => {
   let {email, password, ten, isGV, isAdmin, ma, maGV} = req.body;
   try {
-    if(ma == maa){
+    const code = await db.Code.findOne({where : {email : email}});
+    if(ma === code.code){
+      await db.Code.destroy({where : {email : email}});
       const kt = await db.User.findOne({where : {email : email}});
       if(kt !== null) {
         res.send('da ton tai');
@@ -30,7 +31,6 @@ router.post('/dk', async (req, res, next) => {
           res.send(result);
         }
       }
-      ma = -111;
     }
     else {
       if(ma === '')
@@ -196,6 +196,10 @@ router.delete('/:id', async (req, res, next) => {
  router.post('/send', async (req, res, next) => {
    let {email} = req.body;
    const kt = await db.User.findOne({where : {email : email}});
+   const code = await db.Code.findOne({where : {email}});
+    if (code !== null) {
+      await db.Code.destroy({where : {email}});
+    }
     if(kt !== null) {
       res.send('da ton tai');
     }
@@ -223,6 +227,7 @@ router.delete('/:id', async (req, res, next) => {
               res.redirect('/');
           } else {
               console.log('Message sent: ' +  info.response);
+              db.Code.create({email, code: maa});
               res.send('1');
           }
       });

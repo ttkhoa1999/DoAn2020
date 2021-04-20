@@ -11,10 +11,6 @@ class DanhSachDoAnAdmin extends Component{
     this.id = cookie.get('id') !== 'admin' ? true : false;
     this.id1 = cookie.get('id');
     this.state = {
-      s : false,
-      n : false,
-      ngayNop : '',
-      phong : '',
     }
   }
 
@@ -33,33 +29,6 @@ class DanhSachDoAnAdmin extends Component{
       [target.name] : target.value
   })
   }
-
-  onClickP = (id) => {
-    this.setState({
-      n : !this.state.n
-    })
-    this.props.onClickP(id, this.state.phong);
-  }
-
-  onClickS = (id) => {
-    this.setState({
-      s : !this.state.s
-    })
-    this.props.onClickS(id, this.state.ngayNop);
-  }
-
-  onClick = () => {
-    this.setState({
-      s : !this.state.s,
-    })
-  }
-
-  onClick1 = () => {
-    this.setState({
-      n : !this.state.n,
-    })
-  }
-
 
   onDeleteGV = (idGV, id, ngTao) => {
     console.log(this.id1, idGV);
@@ -140,33 +109,15 @@ class DanhSachDoAnAdmin extends Component{
             <td onClick={() => this.onClick2(ds.id)}>{ds.moTa}</td>
             <td onClick={() => this.onClick2(ds.id)}>{ds.ngDK}</td>
             {
-              this.id ? '' :
+              this.id ? 'Chưa cập nhật' :
               <td >
                 {ds.ngayNop}
-                <button type="button" className="btn btn-warning f" onClick={this.onClick}>CN</button>
-                {this.state.s ? 
-                  <div>
-                    <input type="date" name="ngayNop" id="input" className="form-control" onChange={this.onChange} value={this.state.ngayNop} required="required" title="" />
-                    <button type="button" className="btn btn-danger" onClick={() => this.onClickS(ds.id)}>save</button>
-                  </div>
-                  :
-                  ''
-                }
               </td>
             }
             {
-              this.id ? '' :
+              this.id ? 'Chưa cập nhật' :
               <td >
                 {ds.phong}
-                <button type="button" className="btn btn-warning f" onClick={this.onClick1}>CN</button>
-                {this.state.n ? 
-                  <div>
-                    <input type="text" name="phong" id="input" className="form-control" onChange={this.onChange} value={this.state.phong} required="required" title="" />
-                    <button type="button" className="btn btn-danger" onClick={() => this.onClickP(ds.id)}>save</button>
-                  </div>
-                  :
-                  ''
-                }
               </td>
             }
             <td>{ds.user.map((item, index) => {

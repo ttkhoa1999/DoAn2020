@@ -13,6 +13,7 @@ import TrangChu from './components/TrangChu';
 import LuaChon from './components/LuaChon';
 import TaoThongBao from './components/TaoThongBao';
 import QLND from './components/QLND';
+import CapNhat from './components/CapNhat';
 
 
 
@@ -36,6 +37,11 @@ const routes = [
         path : '/TaoThongBao',
         exact : false,
         main : ({history}) => <TaoThongBao history={history}/>
+    },
+    {
+        path : '/CapNhat',
+        exact : false,
+        main : ({history}) => <CapNhat history={history}/>
     },
     {
         path : '/QLND',

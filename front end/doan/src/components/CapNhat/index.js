@@ -9,21 +9,61 @@ import New from '../../images/new.png';
 
 
 
-class LuaChon extends Component{
+class CapNhat extends Component{
     constructor(props){
         super(props);
         this.state = {
             ten : 'admin',
             isSV : false,
             o : false,
-            op : false
+            op : false,
+            phong : '',
+            loai : 'Đồ án cơ sở',
           }
+    }
+
+    onChange = ({target}) => {
+        this.setState({
+          [target.name] : target.value
+      })
     }
 
     onClick = () => {
         this.setState({
             op : !this.state.op
         })
+    }
+
+    onClickAllSaveN = () => {
+        this.setState({
+          n : !this.state.n
+        })
+        axios({
+          method : 'PUT',
+          url : 'http://localhost:4000/topics/ngay',
+          data : {
+            loai : this.state.loai,
+            ngayNop : this.state.ngayNop,
+          }
+        }).then(res => {
+            alert('Cập nhập ngày thành công');
+        })
+    }
+
+    onClickAllSaveP = () => {
+    this.setState({
+        p : !this.state.p
+    })
+    axios({
+        method : 'PUT',
+        url : 'http://localhost:4000/topics/phong',
+        data : {
+        loai : this.state.loai,
+        phong : this.state.phong,
+        }
+    }).then(res => {
+        alert('Cập nhập phòng thành công');
+    })
     }
 
     componentDidMount(){
@@ -146,6 +186,15 @@ class LuaChon extends Component{
                                 {
                                     this.state.ten == 'admin' 
                                     ?   <div class="accordion-heading stylecolor" style={{padding: '5px'}}>
+                                            <Link to={'/LuaChon'}>Loại đồ án</Link>
+                                        </div>
+                                    : ''
+                                }
+                            </div>
+                            <div class="accordion-group khungt">
+                                {
+                                    this.state.ten == 'admin' 
+                                    ?   <div class="accordion-heading stylecolor" style={{padding: '5px'}}>
                                             <Link to={'/TaoThongBao'}>Tạo thông báo</Link>
                                         </div>
                                     :   <div>
@@ -163,24 +212,6 @@ class LuaChon extends Component{
                                         </div>
                                 }
                             </div>
-                            <div class="accordion-group khungt">
-                                {
-                                    this.state.ten == 'admin' 
-                                    ?   <div class="accordion-heading stylecolor" style={{padding: '5px'}}>
-                                            <Link to={'/CapNhat'}>Cập nhật ngày và phòng</Link>
-                                        </div>
-                                    :   <div>
-                                        { this.state.isSV 
-                                            ? ''
-                                            : <Link to={'/'}>Giáo viên hướng dẫn</Link>
-                                            }
-                                        </div>
-                                }
-                            <div id="collapse_1" class="accordion-body collapse" >
-                                <div class="accordion-inner">
-                                </div>
-                            </div>
-                                </div>
                             <div class="accordion-group khungt">
                                 <div class="accordion-heading stylecolor" style={{padding: '5px'}}>
                                         <a href="#">Tài liệu tham khảo</a>
@@ -202,32 +233,43 @@ class LuaChon extends Component{
 
                     <div class="col-lg-9">
                         <div class="divmain">
-                            <div class="bgtitle">Loại đồ án</div>
-                            <div className=" col-lg-13 allk ">
-                                <div className="khung">
-                                    {this.state.isSV
-                                        ? <Link to={`DangKyDoAn/${'DACS'}`}><h3>Đồ án cơ sở</h3></Link>
-                                        : <Link to={`QuanLyDoAn/${'DACS'}`}><h3>Đồ án cơ sở</h3></Link>
-                                    }
+                            <div class="bgtitle">Cập nhập ngày và phòng báo cáo</div>
+                            <div className=" col-lg-13 allk " style={{marginTop: "2%"}}>
+                                
+                                <div style={{width: '48%', backgroundColor: "lightgray"}}>
+                                    <div>
+                                        <h2 style={{backgroundColor: "rgba(7, 126, 13, 0.9)", margin: '0 0', padding: '10px 5px'}}>Ngày báo cáo</h2>
+                                        <div className="form-group">
+                                          <p style={{padding: '10px 5px'}}>Loại đồ án</p>
+                                          <select className="form-control" name="loai" onChange={this.onChange} Value={this.state.loai}>
+                                              <option value="Đồ án cơ sở">Đồ án cơ sở</option>
+                                              <option value="Đồ án chuyên ngành">Đồ án chuyên ngành</option>
+                                              <option value="Đồ án tốt nghiệp">Đồ án tốt nghiệp</option>
+                                              <option value="Khóa luận">Khóa luận</option>
+                                          </select>
+                                        </div>
+                                        <input type="date" name="ngayNop" id="input" className="form-control" onChange={this.onChange} value={this.state.ngayNop} required="required" title="" />
+                                        <button type="button" className="btn btn-info" onClick={this.onClickAllSaveN}>save</button>
+                                      </div>
                                 </div>
-                                <div className="khung">
-                                    {this.state.isSV
-                                        ? <Link to={`DangKyDoAn/${'DACN'}`}><h3>Đồ án chuyên ngành</h3></Link>
-                                        : <Link to={`QuanLyDoAn/${'DACN'}`}><h3>Đồ án chuyên ngành</h3></Link>
-                                    }
+
+                                <div style={{width: '48%', backgroundColor: "lightgray", marginLeft: "4%"}}>
+                                    <div> 
+                                        <h2 style={{backgroundColor: "rgba(7, 126, 13, 0.9)", margin: '0 0', padding: '10px 5px'}} >Phòng báo cáo</h2>
+                                        <div className="form-group">
+                                          <p style={{padding: '10px 5px'}}>Loại đồ án</p>
+                                          <select className="form-control" name="loai" onChange={this.onChange} Value={this.state.loai}>
+                                              <option value="Đồ án cơ sở">Đồ án cơ sở</option>
+                                              <option value="Đồ án chuyên ngành">Đồ án chuyên ngành</option>
+                                              <option value="Đồ án tốt nghiệp">Đồ án tốt nghiệp</option>
+                                              <option value="Khóa luận">Khóa luận</option>
+                                          </select>
+                                      </div>
+                                        <input type="text" name="phong" id="input" className="form-control" onChange={this.onChange} value={this.state.phong} required="required" title="" />
+                                        <button type="button" className="btn btn-info" onClick={this.onClickAllSaveP}>save</button>
+                                      </div>
                                 </div>
-                                <div className="khung">
-                                    {this.state.isSV
-                                        ? <Link to={`DangKyDoAn/${'DATN'}`}><h3>Đồ án tốt nghiệp</h3></Link>
-                                        : <Link to={`QuanLyDoAn/${'DATN'}`}><h3>Đồ án tốt nghiệp</h3></Link>
-                                    }
-                                </div>
-                                <div className="khung">
-                                    {this.state.isSV
-                                        ? <Link to={`DangKyDoAn/${'KL'}`}><h3>Khóa luận tốt nghiệp</h3></Link>
-                                        : <Link to={`QuanLyDoAn/${'KL'}`}><h3>Khóa luận tốt nghiệp</h3></Link>
-                                    }
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -257,4 +299,4 @@ class LuaChon extends Component{
   
 }
 
-export default LuaChon;
+export default CapNhat;

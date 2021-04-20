@@ -27,6 +27,8 @@ class QuanLyDoAn extends Component{
           idUser : '',
           tenDA : '',
           idLoai : '',
+          cp : false,
+          ng : false
         }
         const cookie = new Cookies();
         this.id = cookie.get('id') !== 'admin' ? true : false;
@@ -64,16 +66,32 @@ class QuanLyDoAn extends Component{
         })
 
       }
-      onClickS = (id, ngayNop) => {
+
+      onClickChangeP = () => {
+        this.setState({
+          cp : !this.state.cp,
+        })
+      }
+    
+      onClickChangeN = () => {
+        this.setState({
+          ng : !this.state.ng,
+        })
+      }
+
+      onClickS = (id) => {
         axios({
           method : 'PUT',
           url : 'http://localhost:4000/topics',
           data : {
             id : id,
-            ngayNop : ngayNop,
+            ngayNop : this.state.ngayNop,
           }
         }).then(res => {
-          console.log(res.data);
+          this.setState({
+            ng : !this.state.ng,
+          })
+          this.onClickI(id);
           this.componentDidMount();
         })
       }
@@ -84,16 +102,19 @@ class QuanLyDoAn extends Component{
       })
       }
 
-      onClickP = (id, phong) => {
+      onClickP = (id) => {
         axios({
           method : 'PUT',
           url : 'http://localhost:4000/topics/p',
           data : {
             id : id,
-            phong : phong,
+            phong : this.state.phong,
           }
         }).then(res => {
-          console.log(res.data);
+          this.setState({
+            cp : !this.state.cp,
+          })
+          this.onClickI(id);
           this.componentDidMount();
         })
       }
@@ -284,7 +305,7 @@ class QuanLyDoAn extends Component{
           this.state.s ? 
             <div className="panel panel-primary">
                 <div className="panel-heading flex">
-                    <h3 className="panel-title">Thông tin chi tiết đồ án</h3>
+                    <h3 className="panel-title">Thông tin chi tiết</h3>
                     <button type="button" class="btn btn-lg btn-danger fx xx wcn" onClick={this.onClickD}>X</button>
                 </div>
                 <div className="panel-body">
@@ -292,8 +313,28 @@ class QuanLyDoAn extends Component{
                     <h4>Nền tảng: {this.state.infor.nenTang} </h4>
                     <h4>Loại đồ án: {this.state.infor.loai} </h4>
                     <h4>Mô tả: {this.state.infor.moTa} </h4>
-                    <h4>Ngày báo cáo: {this.state.infor.ngayNop === 'Invalid date' ? 'Chưa cập nhật' : this.state.infor.ngayNop} </h4>
-                    <h4>Phòng: {this.state.infor.phong === null ? 'Chưa cập nhật' : this.state.infor.phong} </h4>
+                    <h4>Ngày báo cáo: {this.state.infor.ngayNop === 'Invalid date' ? 'Chưa cập nhật' : this.state.infor.ngayNop} 
+                      <button type="button" className="btn btn-warning f fz" onClick={this.onClickChangeN}>CN</button>
+                      {this.state.ng ? 
+                        <div>
+                          <input type="date" name="ngayNop" id="input" className="form-control" onChange={this.onChange} value={this.state.ngayNop} required="required" title="" />
+                          <button type="button" className="btn btn-danger" onClick={() => this.onClickS(this.state.infor.id)}>save</button>
+                        </div>
+                        :
+                        ''
+                      }
+                    </h4>
+                    <h4>Phòng: {this.state.infor.phong === null ? 'Chưa cập nhật' : this.state.infor.phong} 
+                      <button type="button" className="btn btn-warning f fz" onClick={this.onClickChangeP}>CN</button>
+                      {this.state.cp ? 
+                        <div>
+                          <input type="text" name="phong" id="input" className="form-control" onChange={this.onChange} value={this.state.phong} required="required" title="" />
+                          <button type="button" className="btn btn-danger" onClick={() => this.onClickP(this.state.infor.id)}>save</button>
+                        </div>
+                        :
+                        ''
+                      }
+                    </h4>
                     <h4>Thành viên: 
                       {this.state.infor.user.map((item) => {
                         if(item.isGV === false){
@@ -383,49 +424,11 @@ class QuanLyDoAn extends Component{
                                 <th>Số người</th>
                                 {
                                   this.id ? '' :
-                                  <th style={{width: '100px'}}>Ngày báo cáo
-                                    <button type="button" className="btn btn-warning f" onClick={this.onClickALLN}>ALL</button>
-                                    {this.state.n ? 
-                                      <div>
-                                        <div className="form-group">
-                                          <label>Loại đồ án</label>
-                                          <select className="form-control" name="loai" onChange={this.onChange} Value={this.state.loai}>
-                                              <option value="Đồ án cơ sở">Đồ án cơ sở</option>
-                                              <option value="Đồ án chuyên ngành">Đồ án chuyên ngành</option>
-                                              <option value="Đồ án tốt nghiệp">Đồ án tốt nghiệp</option>
-                                              <option value="Khóa luận">Khóa luận</option>
-                                          </select>
-                                      </div>
-                                        <input type="date" name="ngayNop" id="input" className="form-control" onChange={this.onChange} value={this.state.ngayNop} required="required" title="" />
-                                        <button type="button" className="btn btn-danger" onClick={this.onClickAllSaveN}>save</button>
-                                      </div>
-                                      :
-                                      ''
-                                    }
-                                  </th>
+                                  <th style={{width: '100px'}}>Ngày báo cáo</th>
                                 }
                                 {
                                   this.id ? '' :
-                                  <th style={{width: '10px'}}>Phòng
-                                    <button type="button" className="btn btn-warning  f" onClick={this.onClickALLP}>ALL</button>
-                                    {this.state.p ? 
-                                      <div style={{width: '200px'}}> 
-                                        <div className="form-group">
-                                          <label>Loại đồ án</label>
-                                          <select className="form-control" name="loai" onChange={this.onChange} Value={this.state.loai}>
-                                              <option value="Đồ án cơ sở">Đồ án cơ sở</option>
-                                              <option value="Đồ án chuyên ngành">Đồ án chuyên ngành</option>
-                                              <option value="Đồ án tốt nghiệp">Đồ án tốt nghiệp</option>
-                                              <option value="Khóa luận">Khóa luận</option>
-                                          </select>
-                                      </div>
-                                        <input type="text" name="phong" id="input" className="form-control" onChange={this.onChange} value={this.state.phong} required="required" title="" />
-                                        <button type="button" className="btn btn-danger" onClick={this.onClickAllSaveP}>save</button>
-                                      </div>
-                                      :
-                                      ''
-                                    }
-                                  </th>
+                                  <th style={{width: '10px'}}>Phòng</th>
                                 }
                                 <th style={{width: '300px'}}>Giáo viên hướng dẫn</th>
                                 <th>
@@ -479,8 +482,6 @@ class QuanLyDoAn extends Component{
                   idLoai = {this.state.idLoai}
                   index={index}
                   onDelete={this.onDelete}
-                  onClickS={this.onClickS}
-                  onClickP={this.onClickP}
                   onClickI={this.onClickI}
                 />
             );
