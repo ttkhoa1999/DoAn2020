@@ -84,18 +84,18 @@ class Order extends Component{
   render() {
     return (
         <div className="row">
-              <div className="col-xs- col-sm- col-md-9 col-lg- xl"> 
-                <div className="panel panel-danger ml mt">
+              <div className="col-xs- col-sm- col-md-8 col-lg- xl"> 
+                <div className="panel panel-danger ml mt" style={{boxShadow: '0 0 10px rgba(0,0,0,1)'}}>
                     <div className="panel-heading">
-                            <h3 className="panel-title mc">Lời mời tham gia hướng dẫn đồ án</h3>
+                            <h3 className="panel-title mc" style={{fontSize: '30px'}}>Lời mời tham gia hướng dẫn đồ án</h3>
                     </div>
-                    <div className="panel-body">
-                        
+                    <div className="panel-body" style={{margin:'15px'}}>
                         <table className="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Tên đề tài hướng dẫn</th>
                                     <th>Người mời</th>
+                                    <th>Thao Tác</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -103,7 +103,7 @@ class Order extends Component{
                                     return <tr  key={index}>
                                                 <td>- {item.Topic.tenDoAn}</td>
                                                 <td>{item.User === null ? 'admin' : item.User.ten}</td>
-                                                <td className="ml-10">
+                                                <td style={{textAlign:'center'}}>
                                                     <button type="button" className="btn btn-warning" onClick={() => this.onClick(item.Topic.id, item.id, item.idNhan, item.Topic.loai)}>Đồng ý</button>
                                                     <button type="button" className="btn btn-danger ml-10" onClick={() => this.onClickD(item.id, item.idNhan)}>Từ chối</button>
                                                 </td>

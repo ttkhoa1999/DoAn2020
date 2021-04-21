@@ -68,38 +68,34 @@ class SuaDoAn extends Component{
     }
   render() {
     return (
-        <div className="row">
-            <div className="col-xs- col-sm- col-md-6 col-lg- ml"> 
-                <div className="panel panel-danger ml mt">
-                    <div className="panel-heading">
-                            <h3 className="panel-title mc">Sửa đồ án</h3>
+        <div>
+            <div className="center">    
+            <div className="container"> 
+                <div className="text">Sửa Đề Tài</div>
+                <form onSubmit={this.onSubmit}>
+                    <div className="data">
+                        <label>Tên đề tài</label>
+                        <input type="text" placeholder="Nhập tên đề tài" name="tenDoAn" required onChange={this.onChange}/>
                     </div>
-                    <div className="panel-body">
-                        <form onSubmit={this.onSubmit}>
-                            <div className="data">
-                                <label>Tên</label>
-                                <input type="text" className="form-control" name="tenDoAn" placeholder="Tên đồ án" onChange={this.onChange} value={this.state.tenDoAn}/>
-                            </div>
-                            <div className="data">
-                                <label>Nền tảng</label>
-                                <input type="text" className="form-control" name="nenTang" placeholder="Nền tảng"  onChange={this.onChange} value={this.state.nenTang}/>
-                            </div>
-                            <div className="data">
-                                <label>Mô tả</label>
-                                <textarea type="text" className="form-control" name="moTa" placeholder="Mô tả"  onChange={this.onChange} value={this.state.moTa}/>
-                            </div>
-                            <div className="data">
-                                <label>Số lượng</label>
-                                <input type="number" min='1' max='3' className="form-control" name="ngDK" onChange={this.onChange} value={this.state.ngDK}/>
-                            </div>
-             
-                            <div className="btn">
-                                <button type="submit" className="submit-button">Lưu</button>
-                            </div>
-                        </form> 
+                    <div className="data">
+                        <label>Nền tảng</label>
+                        <input type="text" placeholder="Nhập nền tảng" name="nenTang" required onChange={this.onChange}/>
                     </div>
-                </div>
-            </div>  
+                    <div className="data">
+                        <label>Mô tả</label>
+                        <textarea type="text" placeholder="Mô tả" name="moTa" defaultValue={""} Value={this.state.loai} />
+                    </div>
+                    <div className="data">
+                        <label>Số lượng</label>
+                        <input type="number" min='1' max='3' className="form-control" name="ngDK" onChange={this.onChange}/>
+                    </div>
+                    <div className="btn">
+                        <div className="inner" />
+                        <button className="submit-button" type="submit" >Sửa</button>
+                    </div>
+                </form>
+            </div>
+            </div>
         </div>
     );
   }

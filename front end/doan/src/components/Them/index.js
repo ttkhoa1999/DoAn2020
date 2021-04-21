@@ -51,43 +51,43 @@ class ThemDoAn extends Component{
   render() {
     return (
         <div>
-            <div className="center">    
-            <div className="container"> 
-                <div className="text">Thêm Đồ Án</div>
-                <form onSubmit={this.onSubmit}>
-                    <div className="data">
-                        <label>Tên đồ án</label>
-                        <input type="text" placeholder="Nhập tên đồ án" name="tenDoAn" required onChange={this.onChange}/>
-                    </div>
-                    <div className="data">
-                        <label>Nền tảng</label>
-                        <input type="text" placeholder="Nhập nền tảng" name="nenTang" required onChange={this.onChange}/>
-                    </div>
-                    <div className="data">
-                        <label>Loại đồ án</label>
-                        <select className="form-control" name="loai" onChange={this.onChange} Value={this.state.loai}>
-                            <option value="Đồ án cơ sở">Đồ án cơ sở</option>
-                            <option value="Đồ án chuyên ngành">Đồ án chuyên ngành</option>
-                            <option value="Đồ án tốt nghiệp">Đồ án tốt nghiệp</option>
-                            <option value="Khóa luận">Khóa luận</option>
-                        </select>
-                    </div>
-                    <div className="data">
-                        <label>Mô tả</label>
-                        <textarea type="text" placeholder="Mô tả" name="moTa" defaultValue={""} Value={this.state.loai} />
-                    </div>
-                    <div className="data">
-                        <label>Số lượng</label>
-                        <input type="number" min='1' max='3' className="form-control" name="ngDK" onChange={this.onChange}/>
-                    </div>
-                    <div className="btn">
-                        <div className="inner" />
-                        <button type="submit" >Thêm</button>
-                    </div>
-                </form>
-            </div>
-            </div>
+        <div className="center">    
+        <div className="container"> 
+            <div className="text">Thêm Đề Tài</div>
+            <form onSubmit={this.onSubmit}>
+                <div className="data">
+                    <label>Tên đề tài</label>
+                    <input type="text" placeholder="Nhập tên đề tài" name="tenDoAn" required onChange={this.onChange}/>
+                </div>
+                <div className="data">
+                    <label>Nền tảng</label>
+                    <input type="text" placeholder="Nhập nền tảng" name="nenTang" required onChange={this.onChange}/>
+                </div>
+                <div className="data">
+                    <label>Loại đồ án</label>
+                    <select className="form-control" name="loai" onChange={this.onChange} Value={this.state.loai}>
+                        <option value="Đồ án cơ sở">Đồ án cơ sở</option>
+                        <option value="Đồ án chuyên ngành">Đồ án chuyên ngành</option>
+                        <option value="Đồ án tốt nghiệp">Đồ án tốt nghiệp</option>
+                        <option value="Khóa luận">Khóa luận</option>
+                    </select>
+                </div>
+                <div className="data">
+                    <label>Mô tả</label>
+                    <textarea type="text" placeholder="Mô tả" name="moTa" defaultValue={""} Value={this.state.loai} />
+                </div>
+                <div className="data">
+                    <label>Số lượng</label>
+                    <input type="number" min='1' max='3' className="form-control" name="ngDK" onChange={this.onChange}/>
+                </div>
+                <div className="btn">
+                    <div className="inner" />
+                    <button className="submit-button" type="submit" >Thêm</button>
+                </div>
+            </form>
         </div>
+        </div>
+    </div>
     );
   }
   

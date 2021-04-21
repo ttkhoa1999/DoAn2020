@@ -67,8 +67,8 @@ class DangKyDoAn extends Component{
                               <Link to={'/LuaChon'} type="button" className="btn btn-success" style={{float: 'left', marginTop: '-0.5%', width: 'auto'}}>Quay lại</Link>                              
                             </div>
                             <div>
-                              <div className="panel panel-danger">
-                                    <div className="panel-body">
+                              <div className="panel panel-danger" style={{marginTop:'10px'}}>
+                                    <div className="panel-body" style={{margin:'15px'}}>
                                           <table className="table table-hover tabledk">
                                               <thead>
                                                   <tr>
@@ -79,6 +79,7 @@ class DangKyDoAn extends Component{
                                                       <th>Số lượng</th>
                                                       <th>Người đăng ký</th>
                                                       <th>Giáo viên hướng dẫn</th>
+                                                      <th>Thao Tác</th>
                                                   </tr>
                                               </thead>
                                               <tbody>

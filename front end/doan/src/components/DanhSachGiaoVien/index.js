@@ -70,41 +70,42 @@ class DanhSachGiaoVien extends Component{
   render() {
     return (
         <div className="row">
-            <div className="col-xs- col-sm- col-md-9 col-lg- xl"> 
-                <div className="panel panel-danger ml mt">
-                    <div className="panel-heading">
-                            <h3 className="panel-title mc">Danh sách giáo viên</h3>
-                    </div>
-                    <div className="panel-body">
-                        
-                        <table className="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Tên giáo viên</th>
-                                    <th>Tên đề tài hướng dẫn</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.isGV.map((item, index) => {
-                                    return <tr  key={index}>
-                                                <td>{item.ten}</td>
-                                                <td>
-                                                    {this.state.isGV[index].topic.map((item, index) => {
-                                                        return <p key={index}>- {item.tenDoAn}</p>
-                                                    })}
-                                                </td>
-                                                <td>
-                                                    <button type="button" className="btn btn-warning" onClick={() => this.onClick(this.state.isGV[index].id, this.state.isGV[index].ten)}>Chọn</button>
-                                                </td>
-                                            </tr>
-                                })}
-                            </tbody>
-                        </table>
-                        <Link to={`/QuanLyDoAn/${this.state.idLoai}`} type="button" className="btn btn-success btc">Quay lại</Link>
-                    </div>
+        <div className="col-xs- col-sm- col-md-8 col-lg- xl" > 
+            <div className="panel panel-danger ml mt"style={{boxShadow: '0 0 10px rgba(0,0,0,1)'}}>
+                <div className="panel-heading">
+                        <h3 className="panel-title mc" style={{fontSize: '30px'}}>Danh sách giáo viên</h3>
                 </div>
-            </div>  
-        </div>
+                <div className="panel-body"style={{margin:'15px'}}>
+                    
+                    <table className="table table-hover" >
+                        <thead>
+                            <tr>
+                                <th>Tên giáo viên</th>
+                                <th>Tên đề tài hướng dẫn</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.isGV.map((item, index) => {
+                                return <tr  key={index}>
+                                            <td>{item.ten}</td>
+                                            <td>
+                                                {this.state.isGV[index].topic.map((item, index) => {
+                                                    return <p key={index}>- {item.tenDoAn}</p>
+                                                })}
+                                            </td>
+                                            <td style={{textAlign:'center'}}>
+                                                <button type="button"  className="btn btn-warning" onClick={() => this.onClick(this.state.isGV[index].id, this.state.isGV[index].ten)}>Chọn</button>
+                                            </td>
+                                        </tr>
+                            })}
+                        </tbody>
+                    </table>
+                    <Link to={`/QuanLyDoAn/${this.state.idLoai}`} type="button" className="btn btn-success btc" style={{margin:'0 45%'}}>Quay lại</Link>
+                </div>
+            </div>
+        </div>  
+    </div>
     );
   }
   

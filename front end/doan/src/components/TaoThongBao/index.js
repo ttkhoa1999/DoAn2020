@@ -44,11 +44,11 @@ class TaoThongBao extends Component{
     return (
         <div className="row">
             <div className="col-xs- col-sm- col-md-6 col-lg- ml"> 
-                <div className="panel panel-danger ml mt">
+                <div className="panel panel-danger ml mt" style={{boxShadow: '0 0 10px rgba(0,0,0,1)'}}>
                     <div className="panel-heading">
-                            <h3 className="panel-title mc">Tạo thông báo</h3>
+                            <h3 className="panel-title mc" style={{fontSize: '30px'}}>Tạo thông báo</h3>
                     </div>
-                    <div className="panel-body">
+                    <div className="panel-body" style={{margin:'15px'}}>
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
                                 <label>Tiêu đề</label>
@@ -58,7 +58,7 @@ class TaoThongBao extends Component{
                                 <label>Nội dung</label>
                                 <textarea type="text" className="form-control" name="noiDung" placeholder="Nội dung"  onChange={this.onChange}/>
                             </div>            
-                            <button type="submit" className="btn btn-success" style={{width: "100px", marginLeft: "40%"}}>Tạo</button>
+                            <button type="submit" className="btn btn-success" style={{width: "100px", marginLeft: "42%"}}>Tạo</button>
                         </form> 
                     </div>
                 </div>

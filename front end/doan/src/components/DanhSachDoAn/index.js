@@ -36,7 +36,7 @@ class DanhSachDoAn extends Component{
                 })}
             </td>
             
-            <td style={{display: "flex", justifyContent: "center"}}>
+            <td style={{textAlign:'center'}}>
               <button type="button" className="btn btn-success" onClick={() => this.onClick(ds.id, ds.user, ds.ngDK)}>Đăng ký </button>
             </td>
       </tr>

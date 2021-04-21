@@ -360,12 +360,12 @@ class QuanLyDoAn extends Component{
                             <div className=" col-lg-13 ">
         {
           this.state.s ? 
-            <div className="panel panel-primary">
+            <div className="panel panel-primary" style={{marginTop: '10px'}}>
                 <div className="panel-heading flex">
                     <h3 className="panel-title" style={{width: '200px'}}>Thông tin chi tiết</h3>
                     <button type="button" class="btn btn-lg btn-danger fx xx wcn" onClick={this.onClickD}>X</button>
                 </div>
-                <div className="panel-body">
+                <div className="panel-body" style={{marginLeft: '10px'}}>
                     <h4>Tên đồ án: {this.state.infor.tenDoAn}</h4>
                     <h4>Nền tảng: {this.state.infor.nenTang} </h4>
                     <h4>Loại đồ án: {this.state.infor.loai} </h4>
@@ -400,7 +400,7 @@ class QuanLyDoAn extends Component{
                       })}
                     </h4>
                     <h4>Giáo viên hướng dẫn:
-                      <Link to={`/${this.state.idLoai}/${this.state.infor.id}/tgv`}type="button" className="btn btn-primary f fz" >+</Link> 
+                      <Link to={`/${this.state.idLoai}/${this.state.infor.id}/tgv`}type="button" className="btn btn-primary f fz" >Mời</Link> 
                       {this.state.infor.user.map((item, index) => {
                         if(item.isGV === true){
                         return  <p className="ml-10 mt-5" key={item.id}>Tên: {item.ten}, Email: {item.email}
@@ -470,8 +470,8 @@ class QuanLyDoAn extends Component{
               </div>
           : ''   
         }
-        <div className="panel panel-danger ds1">
-              <div className="panel-body">
+        <div className="panel panel-danger ds1" style={{marginTop:'10px'}}>
+              <div className="panel-body" style={{margin:'10px'}}>
                   {/* {this.id ? <Link to={'/ThongTin'} type="button" className="btn btn-default cy bd ml-5">Quay lại</Link> : ''} */}
                     <table className="table table-hover">
                         <thead>
@@ -490,9 +490,9 @@ class QuanLyDoAn extends Component{
                                   this.id ? '' :
                                   <th style={{width: '10px'}}>Phòng</th>
                                 }
-                                <th style={{width: '300px'}}>Giáo viên hướng dẫn</th>
-                                <th style={{display: "flex", justifyContent: "center"}}>
-                                  <Link to={`/Them/${this.state.idLoai}`} type="button" className="btn btn-default cy bd">Thêm đồ án</Link>
+                                <th style={{width: '250px'}}>Giáo viên hướng dẫn</th>
+                                <th >
+                                  <Link style={{display: "flex", justifyContent: "center"}} to={`/Them/${this.state.idLoai}`} type="button" className="btn btn-default cy bd">Thêm đồ án</Link>
                                 </th>
                             </tr>
                         </thead>

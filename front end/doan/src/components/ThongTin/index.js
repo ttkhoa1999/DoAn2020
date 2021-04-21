@@ -80,8 +80,8 @@ class ThongTin extends Component{
                         <div class="divmain">
                             <div class="bgtitle">Thông tin</div>
                             {this.state.ds.map((item, index) => {
-                              return <div className="panel panel-danger" key={index}>
-                                        <div className="panel-body">
+                              return <div className="panel panel-danger"style={{marginTop:'10px'}} key={index}>
+                                        <div className="panel-body" >
                                             <h4>- Tên đồ án: {this.state.ds[index].tenDoAn}</h4>
                                             <h4>- Nền tảng: {this.state.ds[index].nenTang} </h4>
                                             <h4>- Mô tả: {this.state.ds[index].moTa} </h4>
