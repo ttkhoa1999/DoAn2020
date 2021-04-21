@@ -58,7 +58,7 @@ class TaoThongBao extends Component{
                                 <label>Nội dung</label>
                                 <textarea type="text" className="form-control" name="noiDung" placeholder="Nội dung"  onChange={this.onChange}/>
                             </div>            
-                            <button type="submit" className="btn btn-primary mt btc">Tạo</button>
+                            <button type="submit" className="btn btn-success" style={{width: "100px", marginLeft: "40%"}}>Tạo</button>
                         </form> 
                     </div>
                 </div>

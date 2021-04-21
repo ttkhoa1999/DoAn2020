@@ -491,7 +491,7 @@ class QuanLyDoAn extends Component{
                                   <th style={{width: '10px'}}>Phòng</th>
                                 }
                                 <th style={{width: '300px'}}>Giáo viên hướng dẫn</th>
-                                <th>
+                                <th style={{display: "flex", justifyContent: "center"}}>
                                   <Link to={`/Them/${this.state.idLoai}`} type="button" className="btn btn-default cy bd">Thêm đồ án</Link>
                                 </th>
                             </tr>

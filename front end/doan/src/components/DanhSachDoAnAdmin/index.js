@@ -110,23 +110,23 @@ class DanhSachDoAnAdmin extends Component{
             <td onClick={() => this.onClick2(ds.id)}>{ds.ngDK}</td>
             {
               this.id ? '' :
-              <td >
+              <td onClick={() => this.onClick2(ds.id)}>
                 {ds.ngayNop}
               </td>
             }
             {
               this.id ? '' :
-              <td >
+              <td onClick={() => this.onClick2(ds.id)}>
                 {ds.phong}
               </td>
             }
-            <td>{ds.user.map((item, index) => {
+            <td onClick={() => this.onClick2(ds.id)}>{ds.user.map((item, index) => {
                     if(item.isGV === true){
                     return  <p className="ml-10 mt-5" key={item.id}>{item.ten}, Email: {item.email}</p>
                     }
                 })}
             </td>
-            <td>
+            <td style={{display: "flex", justifyContent: 'center'}} onClick={() => this.onClick2(ds.id)}>
             <Link to={`/${idLoai}/${ds.id}/edit`}type="button" className="btn btn-success" >Sửa</Link>
             <button type="button" className="btn btn-danger ml-10" onClick={() => this.onDelete(ds.id, ds.ngTao)}>Xóa</button>
             </td>

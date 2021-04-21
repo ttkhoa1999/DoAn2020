@@ -249,7 +249,7 @@ class CapNhat extends Component{
                                           </select>
                                         </div>
                                         <input type="date" name="ngayNop" id="input" className="form-control" onChange={this.onChange} value={this.state.ngayNop} required="required" title="" />
-                                        <button type="button" className="btn btn-info centes" onClick={this.onClickAllSaveN}>save</button>
+                                        <button type="button" className="btn btn-info centers" onClick={this.onClickAllSaveN}>save</button>
                                       </div>
                                 </div>
 
