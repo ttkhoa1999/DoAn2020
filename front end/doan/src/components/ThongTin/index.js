@@ -50,15 +50,6 @@ class ThongTin extends Component{
                             </div>
                             <div class="accordion-group khungt">
                                 <div class="accordion-heading stylecolor" style={{padding: '5px'}}>
-                                    <a href="#"> Giảng viên hướng dẫn</a>
-                                </div>
-                            <div id="collapse_1" class="accordion-body collapse" >
-                                <div class="accordion-inner">
-                                </div>
-                            </div>
-                                </div>
-                            <div class="accordion-group khungt">
-                                <div class="accordion-heading stylecolor" style={{padding: '5px'}}>
                                         <a href="#">Tài liệu tham khảo</a>
                                 </div>
                             </div>
@@ -94,7 +85,7 @@ class ThongTin extends Component{
                                                 }
                                               })}
                                             </h4>
-                                            <h4>- Giáo viên hướng dẫn: 
+                                            <h4>- Giảng viên hướng dẫn: 
                                               {this.state.ds[index].user.map((item) => {
                                                 if(item.isGV === true){
                                                 return  <p className="ml-10 mt-5" key={item.id}>Tên: {item.ten}, Email: {item.email}</p>

@@ -171,8 +171,11 @@ class LuaChon extends Component{
                                         </div>
                                     :   <div>
                                         { this.state.isSV 
-                                            ? ''
-                                            : <Link to={'/'}>Giáo viên hướng dẫn</Link>
+                                            ? 
+                                            <div class="accordion-heading stylecolor" style={{padding: '5px'}}>
+                                                <Link to={'/GVHD'}>Giảng viên hướng dẫn</Link>
+                                            </div>
+                                            : ''
                                             }
                                         </div>
                                 }

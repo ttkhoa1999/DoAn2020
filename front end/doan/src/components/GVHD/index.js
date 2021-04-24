@@ -9,7 +9,7 @@ import New from '../../images/new.png';
 
 
 
-class QLND extends Component{
+class GVHD extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -77,7 +77,7 @@ class QLND extends Component{
 
         axios({
             method : 'GET',
-            url : 'http://localhost:4000/users/allUser',
+            url : 'http://localhost:4000/users/isGV',
             data : null,
         }).then(res => {
             console.log(res);
@@ -126,7 +126,7 @@ class QLND extends Component{
                                 ? <p>Chưa có thông tin đồ án</p>
                                 :   this.state.infor.isGV === false
                                     ? <p class="modal-title">Đồ án đăng ký: {this.state.infor.topic[0].tenDoAn}</p>
-                                    : <p class="modal-title">Đồ án hướng dẫn: {this.state.infor.topic.map((item) => {return <p>- {item.tenDoAn}</p>})}</p>
+                                    : <p class="modal-title">Đồ án hướng dẫn: {this.state.infor.topic.map((item) => {return <p>- {item.tenDoAn} ({item.loai})</p>})}</p>
                             }
                         </div>
                     </div>
@@ -140,45 +140,16 @@ class QLND extends Component{
                 <div class="row padding">
                     <div class="col-md-3 col-sx-3 col-sm-3 col-lg-3">
                         <div class="accordion ">
-                            <div class="accordion-group khungt">
-                                {
-                                    this.state.ten == 'admin' 
-                                    ?   <div class="accordion-heading stylecolor" style={{padding: '5px'}}>
-                                            <Link to={'/LuaChon'}>Loại đồ án</Link>
-                                        </div>
-                                    : ''
-                                }
-                            </div>
-                            <div class="accordion-group khungt">
-                                {
-                                    this.state.ten == 'admin' 
-                                    ?   <div class="accordion-heading stylecolor" style={{padding: '5px'}}>
-                                            <Link to={'/TaoThongBao'}>Tạo thông báo</Link>
-                                        </div>
-                                    :   <div>
-                                        { this.state.isSV 
-                                            ? ''
-                                            :   <div class="accordion-heading stylecolor" style={{padding: '5px'}}>
-                                                    <button style={{fontSize: '15px', border: 'none', backgroundColor: 'rgba(16, 163, 23, 0.9)', color: 'white', fontSize: '20px'}} onClick={this.onClick}>Lời mời</button>
-                                                    {
-                                                        this.state.o 
-                                                        ? <img style={{width: '15%',float: 'right'}}  src={New} />
-                                                        : ''
-                                                    }
-                                                </div>
-                                            }
-                                        </div>
-                                }
+                        <div class="accordion-group khungt">
+                                <div class="accordion-heading menuhome" style={{padding: '5px'}}>
+                                    <Link to='/LuaChon'>Trang chủ</Link>
+                                </div>
                             </div>
                             <div class="accordion-group khungt">
                                 <div class="accordion-heading stylecolor" style={{padding: '5px'}}>
-                                <Link to={'/GVHD'}>Giảng viên hướng dẫn</Link>
-                                </div>
-                            <div id="collapse_1" class="accordion-body collapse" >
-                                <div class="accordion-inner">
+                                    <Link to='/'>Tin tức</Link>
                                 </div>
                             </div>
-                                </div>
                             <div class="accordion-group khungt">
                                 <div class="accordion-heading stylecolor" style={{padding: '5px'}}>
                                         <a href="#">Tài liệu tham khảo</a>
@@ -200,7 +171,7 @@ class QLND extends Component{
 
                     <div class="col-lg-9">
                         <div class="divmain">
-                            <div class="bgtitle">Danh sách người dùng</div>
+                            <div class="bgtitle">Danh sách giảng viên</div>
                             <div className=" col-lg-13 allk ">
                                 
                             <table className="table table-hover">
@@ -272,4 +243,4 @@ class QLND extends Component{
   
 }
 
-export default QLND;
+export default GVHD;

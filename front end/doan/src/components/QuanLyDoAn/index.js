@@ -399,7 +399,7 @@ class QuanLyDoAn extends Component{
                         }
                       })}
                     </h4>
-                    <h4>Giáo viên hướng dẫn:
+                    <h4>Giảng viên hướng dẫn:
                       <Link to={`/${this.state.idLoai}/${this.state.infor.id}/tgv`}type="button" className="btn btn-primary f fz" >Mời</Link> 
                       {this.state.infor.user.map((item, index) => {
                         if(item.isGV === true){
@@ -411,16 +411,16 @@ class QuanLyDoAn extends Component{
                     </h4>
                     <h4>
                       <div className="flex">
-                        <div>
+                        <div >
                           Điểm lần 1: {this.state.infor.lan1 === null ?
                           'Chưa cập nhật'
                           : this.state.infor.lan1}
                           <div className="fr ml-5">
                             <button type="button" className="btn btn-warning ml-10 f" onClick={this.onClickDi}>CN</button>
                                 {this.state.di ? 
-                                  <div>
+                                  <div style={{margin:'5px'}}>
                                     <input type="text" name="lan1" id="input" className="form-control" onChange={this.onChange} value={this.state.lan1} required="required" title="" />
-                                    <button type="button" className="btn btn-danger" onClick={() => this.onClickDS(this.state.infor.id, 1)}>save</button>
+                                    <button style={{margin:'2% 37%'}} type="button" className="btn btn-danger" onClick={() => this.onClickDS(this.state.infor.id, 1)}>Save</button>
                                   </div>
                                   :
                                   ''
@@ -434,9 +434,9 @@ class QuanLyDoAn extends Component{
                           <div className="fr ml-5">
                             <button type="button" className="btn btn-warning ml-10 f" onClick={this.onClickDi}>CN</button>
                                 {this.state.di ? 
-                                  <div>
+                                  <div style={{margin:'5px'}}>
                                     <input type="text" name="lan2" id="input" className="form-control" onChange={this.onChange} value={this.state.lan2} required="required" title="" />
-                                    <button type="button" className="btn btn-danger" onClick={() => this.onClickDS(this.state.infor.id, 2)}>save</button>
+                                    <button style={{margin:'2% 37%'}} type="button" className="btn btn-danger" onClick={() => this.onClickDS(this.state.infor.id, 2)}>save</button>
                                   </div>
                                   :
                                   ''
@@ -450,9 +450,9 @@ class QuanLyDoAn extends Component{
                           <div className="fr ml-5">
                             <button type="button" className="btn btn-warning ml-10 f" onClick={this.onClickDi}>CN</button>
                                 {this.state.di ? 
-                                  <div>
+                                  <div style={{margin:'5px'}}>
                                     <input type="text" name="lan3" id="input" className="form-control" onChange={this.onChange} value={this.state.lan3} required="required" title="" />
-                                    <button type="button" className="btn btn-danger" onClick={() => this.onClickDS(this.state.infor.id, 3)}>save</button>
+                                    <button style={{margin:'2% 37%'}} type="button" className="btn btn-danger" onClick={() => this.onClickDS(this.state.infor.id, 3)}>save</button>
                                   </div>
                                   :
                                   ''
@@ -490,9 +490,9 @@ class QuanLyDoAn extends Component{
                                   this.id ? '' :
                                   <th style={{width: '10px'}}>Phòng</th>
                                 }
-                                <th style={{width: '250px'}}>Giáo viên hướng dẫn</th>
+                                <th style={{width: '250px'}}>Giảng viên hướng dẫn</th>
                                 <th >
-                                  <Link style={{display: "flex", justifyContent: "center"}} to={`/Them/${this.state.idLoai}`} type="button" className="btn btn-default cy bd">Thêm đồ án</Link>
+                                  <Link style={{display: "flex", justifyContent: "center"}} to={`/Them/${this.state.idLoai}`} type="button" className="btn btn-default btnAdd">Thêm đồ án</Link>
                                 </th>
                             </tr>
                         </thead>

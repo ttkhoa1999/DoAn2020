@@ -133,7 +133,14 @@ input password{
   border-radius: 4px;
   font-size: 20px;
   margin-left: 2%;
-  background-color: #5afd0e;
+  background-color: #78fa3c;
+}
+.btnAdd{
+  background-color: #3447b3;
+  color: white;
+}
+.btn1:hover{
+  background-color: #54fc06;
 }
 .ml-5 {
   margin-left: 5px;
@@ -166,6 +173,9 @@ html, body {
 .navbar li a {
     color: white !important;
 	font-size: 20px;
+}
+.checkbox{
+    font-size: 17px;
 }
 .navbar li a:hover {
     color: black !important;

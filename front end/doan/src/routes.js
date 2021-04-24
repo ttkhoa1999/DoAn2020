@@ -14,7 +14,7 @@ import LuaChon from './components/LuaChon';
 import TaoThongBao from './components/TaoThongBao';
 import QLND from './components/QLND';
 import CapNhat from './components/CapNhat';
-
+import GVHD from './components/GVHD';
 
 
 const routes = [
@@ -47,6 +47,11 @@ const routes = [
         path : '/QLND',
         exact : false,
         main : ({history}) => <QLND history={history}/>
+    },
+    {
+        path : '/GVHD',
+        exact : false,
+        main : ({history}) => <GVHD history={history}/>
     },
     {
         path : '/DangKy',
