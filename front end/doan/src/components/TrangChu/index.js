@@ -111,7 +111,7 @@ class TrangChu extends Component{
                         <div class="divmain">
                             <div class="bgtitle">Thông báo chung</div>
                             {this.state.tb.map((item, index) => {
-                                return <tr style={{display: 'flex', justifyContent: 'space-between'}}>
+                                return <tr style={{marginTop:'10px',display: 'flex', justifyContent: 'space-between'}}>
                                     <div>
                                         <h3>{item.tieuDe}</h3>
                                         <button style={{width: '100px',height: '20px', fontSize: '15px', border: 'none', backgroundColor: 'white'}} type="button" 

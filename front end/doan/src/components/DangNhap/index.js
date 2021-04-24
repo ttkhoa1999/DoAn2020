@@ -71,10 +71,8 @@ class DangNhap extends Component{
                     <div className="forgot-pass">
                         <a href="#">Quên mật khẩu?</a></div>
                     <div className="btn">
-                        {/* <div className="inner"> */}
-                        <button className="submit-button" type="submit">Đăng nhập</button>
-                        {/* </div> */}
-                            
+                    <div className="inner"></div>
+                    <button className="submit-button" type="submit">Đăng nhập</button>
                     </div>
                         <div className="signup-link">Không có tài khoản? <Link to='/Dangky'>Đăng ký ngay</Link></div>
                 </form>

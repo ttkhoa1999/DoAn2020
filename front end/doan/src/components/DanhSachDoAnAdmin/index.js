@@ -128,7 +128,7 @@ class DanhSachDoAnAdmin extends Component{
             </td>
             <td style={{textAlign:'center'}} onClick={() => this.onClick2(ds.id)}>
             <Link  to={`/${idLoai}/${ds.id}/edit`}type="button" className="btn btn-success" >Sửa</Link>
-            <button style={{width:'54px',height: '40px'}} type="button" className="btn btn-danger ml-10" onClick={() => this.onDelete(ds.id, ds.ngTao)}>Xóa</button>
+            <button style={{width:'52px',height: '40px'}} type="button" className="btn btn-danger ml-10" onClick={() => this.onDelete(ds.id, ds.ngTao)}>Xóa</button>
             </td>
       </tr>
     );

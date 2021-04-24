@@ -103,7 +103,7 @@ class DangKy extends Component{
               </div>
               <div className="data">
                 <label>Password</label>
-                <input type="password" className="form-control" name="password" placeholder="password"  onChange={this.onChange} required/>
+                <input type="password" className="form-control" name="password" placeholder="Password"  onChange={this.onChange} required/>
               </div>
               <div className="data">
                 <label>Họ và Tên</label>
@@ -124,6 +124,7 @@ class DangKy extends Component{
                     {this.state.isGV ? <input type="text" className="form-control w2" name="maGV" placeholder="Mã GV"  onChange={this.onChange}/> : ''}
                </div>
                <div className="btn">
+                   <div className="inner"></div>
                     <button className="submit-button" type="submit">Đăng Ký</button>
                 </div>
             </form>

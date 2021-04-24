@@ -238,8 +238,8 @@ class CapNhat extends Component{
                                 
                                 <div style={{width: '48%', backgroundColor: "lightgray"}}>
                                     <div>
-                                        <h2 style={{backgroundColor: "rgba(7, 126, 13, 0.9)", margin: '0 0', padding: '10px 5px'}}>Ngày báo cáo</h2>
-                                        <div className="form-group">
+                                        <h2 style={{backgroundColor: "rgba(7, 126, 13, 0.9)", textAlign: 'center', margin: '0 0', padding: '10px 5px', color:'white', fontWeight:'bold'}}>Ngày báo cáo</h2>
+                                        <div className="form-group" style={{margin:'15px'}}>
                                           <p style={{padding: '10px 5px'}}>Loại đồ án</p>
                                           <select className="form-control" name="loai" onChange={this.onChange} Value={this.state.loai}>
                                               <option value="Đồ án cơ sở">Đồ án cơ sở</option>
@@ -248,15 +248,15 @@ class CapNhat extends Component{
                                               <option value="Khóa luận">Khóa luận</option>
                                           </select>
                                         </div>
-                                        <input type="date" name="ngayNop" id="input" className="form-control" onChange={this.onChange} value={this.state.ngayNop} required="required" title="" />
+                                        <input type="date" name="ngayNop" id="input" className="form-control" style={{margin:'15px', width:'94%'}} onChange={this.onChange} value={this.state.ngayNop} required="required" title="" />
                                         <button type="button" className="btn btn-info centers" onClick={this.onClickAllSaveN}>Save</button>
                                       </div>
                                 </div>
 
                                 <div style={{width: '48%', backgroundColor: "lightgray", marginLeft: "4%"}}>
                                     <div> 
-                                        <h2 style={{backgroundColor: "rgba(7, 126, 13, 0.9)", margin: '0 0', padding: '10px 5px'}} >Phòng báo cáo</h2>
-                                        <div className="form-group">
+                                        <h2 style={{backgroundColor: "rgba(7, 126, 13, 0.9)", textAlign: 'center', margin: '0 0', padding: '10px 5px', color:'white', fontWeight:'bold'}} >Phòng báo cáo</h2>
+                                        <div className="form-group" style={{margin:'15px'}}>
                                           <p style={{padding: '10px 5px'}}>Loại đồ án</p>
                                           <select className="form-control" name="loai" onChange={this.onChange} Value={this.state.loai}>
                                               <option value="Đồ án cơ sở">Đồ án cơ sở</option>
@@ -265,7 +265,7 @@ class CapNhat extends Component{
                                               <option value="Khóa luận">Khóa luận</option>
                                           </select>
                                       </div>
-                                        <input type="text" name="phong" id="input" className="form-control" onChange={this.onChange} value={this.state.phong} required="required" title="" />
+                                        <input  type="text" name="phong" id="input" className="form-control" style={{margin:'15px', width:'94%'}} onChange={this.onChange} value={this.state.phong} required="required" title="" />
                                         <button type="button" className="btn btn-info centers" onClick={this.onClickAllSaveP}>Save</button>
                                       </div>
                                 </div>
