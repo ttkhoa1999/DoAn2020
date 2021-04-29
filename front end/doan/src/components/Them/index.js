@@ -57,15 +57,15 @@ class ThemDoAn extends Component{
             <form onSubmit={this.onSubmit}>
                 <div className="data">
                     <label>Tên đề tài</label>
-                    <input type="text" placeholder="Nhập tên đề tài" name="tenDoAn" required onChange={this.onChange}/>
+                    <input type="text" placeholder="Nhập tên đề tài" name="tenDoAn" value={this.state.tenDoAn}  required onChange={this.onChange}/>
                 </div>
                 <div className="data">
                     <label>Nền tảng</label>
-                    <input type="text" placeholder="Nhập nền tảng" name="nenTang" required onChange={this.onChange}/>
+                    <input type="text" placeholder="Nhập nền tảng" name="nenTang" value={this.state.nenTang} required onChange={this.onChange}/>
                 </div>
                 <div className="data">
                     <label>Loại đồ án</label>
-                    <select className="form-control" name="loai" onChange={this.onChange} Value={this.state.loai}>
+                    <select className="form-control" name="loai" onChange={this.onChange} value={this.state.loai}>
                         <option value="Đồ án cơ sở">Đồ án cơ sở</option>
                         <option value="Đồ án chuyên ngành">Đồ án chuyên ngành</option>
                         <option value="Đồ án tốt nghiệp">Đồ án tốt nghiệp</option>
@@ -74,11 +74,11 @@ class ThemDoAn extends Component{
                 </div>
                 <div className="data">
                     <label>Mô tả</label>
-                    <textarea type="text" placeholder="Mô tả" name="moTa" defaultValue={""} Value={this.state.loai} />
+                    <textarea type="text" placeholder="Mô tả" name="moTa" value={this.state.moTa} onChange={this.onChange}/>
                 </div>
                 <div className="data">
                     <label>Số lượng</label>
-                    <input type="number" min='1' max='3' className="form-control" name="ngDK" onChange={this.onChange}/>
+                    <input type="number" min='1' max='3' className="form-control" name="ngDK" value={this.state.ngDK} onChange={this.onChange}/>
                 </div>
                 <div className="btn">
                     <div className="inner" />

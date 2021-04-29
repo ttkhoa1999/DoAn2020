@@ -45,7 +45,7 @@ class ThongTin extends Component{
                         <div class="accordion ">
                             <div class="accordion-group khungt">
                                 <div class="accordion-heading" style={{padding: '5px'}}>
-                                  <Link to='/'>Trang Chủ</Link>
+                                  <Link to='#'>Trang Chủ</Link>
                                 </div>
                             </div>
                             <div class="accordion-group khungt">
@@ -67,7 +67,7 @@ class ThongTin extends Component{
                         </div>
                     </div>
 
-                    <div class="col-lg-9">
+                    <div class="col-sx-9 col-sm-9 col-md-9 col-lg-9">
                         <div class="divmain">
                             <div class="bgtitle">Thông tin</div>
                             {this.state.ds.map((item, index) => {

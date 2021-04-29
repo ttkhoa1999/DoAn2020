@@ -84,10 +84,10 @@ class Order extends Component{
   render() {
     return (
         <div className="row">
-              <div className="col-xs- col-sm- col-md-8 col-lg- xl"> 
+              <div className="col-xs col-sm-12 col-md-10 col-lg "> 
                 <div className="panel panel-danger ml mt" style={{boxShadow: '0 0 10px rgba(0,0,0,1)'}}>
                     <div className="panel-heading">
-                            <h3 className="panel-title mc" style={{fontSize: '30px'}}>Lời mời tham gia hướng dẫn đồ án</h3>
+                            <h3 className="panel-title mc" style={{fontSize: '35px'}}>Lời mời tham gia hướng dẫn đồ án</h3>
                     </div>
                     <div className="panel-body" style={{margin:'15px'}}>
                         <table className="table table-hover">

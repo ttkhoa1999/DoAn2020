@@ -47,9 +47,6 @@ input password{
   width: 80px;
   margin-left: 47%;
 }
-.ml {
-  margin-left: 20%;
-}
 .xl {
   margin-left: 10%;
 }
@@ -164,6 +161,16 @@ html, body {
 	font-size: 30px;
 	color: #222;
 }
+.ml{
+  margin-left: 21%;
+}
+@media only screen and (max-width: 700px) {
+  .ml {
+     margin-left: 0px !important;
+  }
+}
+
+  
 .panel-body {
   padding: 0px 0px 0px 0px;
 }

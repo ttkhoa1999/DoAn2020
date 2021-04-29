@@ -77,7 +77,7 @@ class TrangChu extends Component{
                         <div class="accordion ">
                             <div class="accordion-group khungt">
                                 <div class="accordion-heading menuhome" style={{padding: '5px'}}>
-                                        <a href="./index.html">Trang chủ</a>
+                                        <a href="#">Trang chủ</a>
                                 </div>
                             </div>
                             <div class="accordion-group khungt">

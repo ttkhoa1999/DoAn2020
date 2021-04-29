@@ -203,7 +203,7 @@ class LuaChon extends Component{
                         </div>
                     </div>
 
-                    <div class="col-lg-9">
+                    <div class="col-sx-9 col-sm-9 col-md-9 col-lg-9">
                         <div class="divmain">
                             <div class="bgtitle">Loại đồ án</div>
                             <div className=" col-lg-13 allk ">
